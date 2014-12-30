@@ -1,0 +1,203 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+.singbanner{
+    width: 100%;
+    height:25px;
+    border-width: 0px;
+    padding:0px;
+    background-color: #000000;
+    border-spacing: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-collapse:collapse;
+    color:white;
+}
+
+.singbanner td{
+    border-width: 0px;
+    padding:0px;
+    height:0px;
+    border-spacing: 0px;
+    margin-top: 0px;
+    margin-bottom:0px;
+    margin:0px;
+    background-image: url("img/fondosing.gif");
+
+}
+.singbanner td#second{
+    border-width: 0px;
+    padding:0px;
+    border-spacing: 0px;
+    margin-top: 0px;
+    background-image: url("img/fondosing.gif");
+    text-align:right;
+}
+
+a.sing:active{
+    color: white;
+    text-decoration: none;
+}
+
+a.sing:visited{
+    color: white;
+    text-decoration: none;
+}
+
+a.sing:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.gray {
+    color:gray;
+}
+
+.black{
+    color:black
+}
+
+.step1-header,.step3-header,.step3bw-header{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif;
+    font-weight:bold;
+    padding: 8px 3px 4px 5px;
+    border-bottom: 1px solid #9ecad8;
+
+    background-repeat:no-repeat;
+
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 15px;
+    zoom: 1;
+}
+
+.step2-header,.step2bw-header,.step4-header,.step4bw-header{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif;
+    font-weight:bold;
+    padding: 25px 3px 4px 5px;
+    border-bottom: 1px solid #9ecad8;
+
+    background-repeat:no-repeat;
+
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 15px;
+    zoom: 1;
+}
+
+.step1-header
+{
+    background-image: url("img/step_01_color.png");
+}
+.step2-header
+{
+    background-image: url("img/step_02_color.png");
+}
+.step2bw-header
+{
+    background-image: url("img/step_02_bw.png");
+}
+.step3-header
+{
+    background-image: url("img/step_03_color.png");
+}
+.step3bw-header
+{
+    background-image: url("img/step_03_bw.png");
+}
+.step4-header
+{
+    background-image: url("img/step_04_color.png");
+}
+.step4bw-header
+{
+    background-image: url("img/step_04_bw.png");
+}
+
+
+.step1,.step2,.step2bw,.step3,.step3bw,.step4,.step4bw{border:1px solid #9ECAD8;position:absolute;overflow:hidden;background-color:white;}
+.step1,.step2,.step2bw,.step3,.step3bw,.step4,.step4bw{width:100%;}
+.step1-noborder,.step2-noborder,.step2bw-noborder,.step3-noborder,.step3bw-noborder,.step4-noborder,.step4bw-noborder{border:0;}
+.step2,.step2bw,.step4,.step4bw{z-index:8;}
+.step1,.step1-colpsd,.step1bw-colpsd,.step3,.step3bw,.step3-colpsd,.step3bw-colpsd{z-index:16;}
+.step1-exp,.step3-exp,.step3bw-exp{margin:3px;float:right;}
+.step1-colps,.step3-colps,.step3bw-colps{background-position:0 0;}
+.step1-colps-over,.step3-colps-over,.step3bw-colps-over{background-position:-16px 0;}
+.step1-exp,.step3-exp,.step3bw-exp{background-position:0 -32px;}
+.step1-exp-over,.step3-exp-over,.step3bw-exp-over{background-position:-16px -32px;}
+.step1-colpsd,.step3-colpsd,.step3bw-colpsd{background-color:#E1F0F2;width:22px;height:22px;border:1px solid #9ECAD8;overflow:hidden;position:absolute;}
+.step1-colpsd-over,.step3-colpsd-over,.step3bw-colpsd-over{cursor:pointer;background-color:#EEFCFF;}
+
+
+.z-south-header
+{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif;
+    font-weight:bold;
+    padding: 5px 3px 4px 5px;
+    border-bottom: 1px solid #9ecad8;
+    background:transparent repeat-x 0 0;
+    white-space: nowrap; overflow: hidden; line-height: 15px; zoom: 1;
+}
+
+.z-center-header
+{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif; font-weight:bold; padding: 5px 3px 4px 5px; border-bottom: 1px solid #9ecad8;
+    background:transparent repeat-x 0 0;
+    border: 1px solid #9ecad8;
+    white-space: nowrap; overflow: hidden; line-height: 15px; zoom: 1;
+}
+
+.z-east-header
+{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif; font-weight:bold; padding: 5px 3px 4px 5px; border-bottom: 1px solid #9ecad8;
+
+    border: 1px solid #9ecad8;
+    background:transparent repeat-x 0 0;
+
+    white-space: nowrap; overflow: hidden; line-height: 15px; zoom: 1;
+}
+
+.z-west-header
+{
+    color: #0F3B82;
+    font: normal 11px tahoma, arial, verdana, sans-serif; font-weight:bold; padding: 5px 3px 4px 5px; border-bottom: 1px solid #9ecad8;
+
+    border: 1px solid #9ecad8;
+    background:transparent repeat-x 0 0;
+
+    white-space: nowrap; overflow: hidden; line-height: 15px; zoom: 1;
+}
+
+.z-panel-header
+{
+    overflow: hidden; zoom: 1; color: #15428b; font: normal;
+    padding: 5px 3px 4px 5px;
+    border: 1px solid #B1CBD5; line-height: 15px;
+    background:transparent repeat-x 0 -1px; font-weight:bold;
+}
+body{
+	font-family:Verdana,Tahoma,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	font-weight:normal;
+}
+

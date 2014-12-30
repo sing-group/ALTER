@@ -1,0 +1,186 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(FastaParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Fasta;
+import es.uvigo.ei.sing.alter.types.FastaSequence;
+import java.io.StringReader;
+import java.util.Vector;
+
+/**
+* FASTA format parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+public class FastaParser
+{
+  /**
+  * Static method that parses an input string and returns a MSA in FASTA format.
+  * @param in Input string.
+  * @return MSA in FASTA format.
+  */
+  public static Fasta parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        FastaParser parser = new FastaParser(new StringReader(in));
+        return parser.Fasta();
+    }
+}
+
+PARSER_END(FastaParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9",">","-",".","?","\"","'"] >
+
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines until ">".<br>
+* &nbsp;&nbsp;2. Sequences with the following format:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2a. ">".<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2b. Sequence identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2c. New line.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2d. Sequence data.<br>
+* @return MSA in FASTA format.
+*/
+Fasta Fasta():
+{
+    Vector<FastaSequence> seqs = new Vector<FastaSequence>();
+    String id, data;
+    String desc = "";
+}
+{
+    (<EOL> | <BLANK>)*
+    (
+        ">" (<BLANK>)* id = Word() (( <BLANK> ((desc = Line() <EOL>) | <EOL>)) | <EOL>)
+        data = Data()
+        {
+            seqs.add(new FastaSequence(id, desc, data));
+        }
+    )+
+    <EOF>
+    {
+        return new Fasta(seqs);
+    }
+}
+
+/**
+* Parses a word made up of any character sequence.
+* @return Parsed word.
+*/
+String Word():
+{
+    String s = "";
+    Token t;
+}
+{
+    (
+        (
+            ("\"" | "'")
+            (
+                (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> |
+                t = <ANY> | t = ">" | t = "-" | t = "." | t = "?" )
+                {
+                    s = s.concat(t.image);
+                }
+            )+
+            ("\"" | "'")
+        )
+    |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> |
+            t = <ANY> | t = ">" | t = "-" | t = "." | t = "?")
+            {
+                s = s.concat(t.image);
+            }
+        )
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> |
+            t = <ANY> | t = ">" | t = "-" | t = "." | t = "?" | t = "\"" | t = "'")
+            {
+                s = s.concat(t.image);
+            }
+        )*
+    )
+    {
+        return s.trim();
+    }
+}
+
+/**
+* Parses a line made up of any character sequence.
+* @return Parsed line.
+*/
+String Line():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> |
+        t = <ANY> | t = ">" | t = "-" | t = "." | t = "?" | t = "\"" | t = "'")
+        {
+            s.append(t.image);
+        }
+    )+
+    {
+        return s.toString().trim();
+    }
+}
+
+/**
+* Parses sequence data. These data can be made up of any characters
+* from "A" to "Z" (lowercase and uppercase), "-", "." or "?".
+* Spaces, tabs and new lines are omitted.
+* @return String with the sequence data (uppercase always).
+*/
+String Data():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <BLANK> | t = <EOL>)
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?" )
+            {
+                s.append(t.image);
+            }
+        )
+    )+
+    {
+        return s.toString().toUpperCase();
+    }
+}

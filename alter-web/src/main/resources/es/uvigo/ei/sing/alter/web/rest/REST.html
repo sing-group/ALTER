@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<!--
+    This file is part of ALTER.
+
+    ALTER is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ALTER is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.1  (Linux)">
+	<META NAME="CREATED" CONTENT="20081217;11064200">
+	<META NAME="CHANGED" CONTENT="20100124;13234400">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt }
+		H1.cjk { font-family: "DejaVu Sans"; font-size: 16pt }
+		H1.ctl { font-family: "Tahoma"; font-size: 16pt }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-size: 14pt; font-style: italic }
+		H2.ctl { font-size: 14pt; font-style: italic }
+
+		pre {background-color:#FCFF94;border:1px dashed #FFC523}
+
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="es-ES" DIR="LTR">
+
+
+<H1 LANG="en-US" CLASS="western">ALTER API</H1>
+<P LANG="en-US" STYLE="margin-bottom: 0cm">The ALTER API allows
+programmers to access ALTER's functionality in a programmatic way,
+through a RESTful Web Service. Using this service, the server can be
+accessed from multiple programming languages, allowing researchers to
+wire ALTER results to their experiments. At this time, the API offers
+an unique convert function with multiple parameters plus some
+reflexible functions to retrieve the input/output program and formats
+currently supported.</P>
+<P STYLE="margin-bottom: 0cm"><SPAN LANG="en-US">Like any RESTful Web
+Service, operations are performed via web queries with a well-defined
+URL structure. The server API is located at <A HREF="%%HOST%%/api/">%%HOST%%/api/</A></SPAN></P>
+
+<H2 LANG="en-US" CLASS="western">Convert function</H2>
+This function gives access to the ALTER's main functionality. It can be accessed through a <b>POST request</b> to:<br>
+<b>%%HOST%%/api/convert</b><br><br>
+<b>POST requests</b> to servers can be performed in two ways (examples can be found below):
+<ol>
+<li>In a classic way, that is, via a web browser and a HTML page including a form. This is useful if you want to include the ALTER functionality in your webpage.</li>
+<li>With any programming language acting as a 'fake' web browser (this is often done with a http helper library, available in many languages like perl (LWP), python (standard library), Java (Apache http-client), etc.). This is useful to call ALTER's functionality inside your own bioinformatics workflow</li>
+</ol>
+Both parameters and the input sequence are specified in this POST request. Here you can find which parameters are available and how to pass them to our server in our examples.
+<!-- It is also posible to encode the parameters (not the sequence) in the requested URL, using<br> %%HOST%%/api/convert?param1=value1&amp;param2=value2 ...-->
+<br>
+<table border="1">
+<tr style="background-color:black; color:white">
+<th>PARAMETER</th>
+<th>DESCRIPTION</th>
+</tr>
+<tbody>
+<tr>
+<td>autodetect</td>
+<td>Autodetect input so/program/format</td>
+</tr>
+<tr>
+<td>inO</td>
+<td>Input operating system</td>
+</tr>
+<tr>
+<td>inP</td>
+<td>Input program</td>
+</tr>
+<tr>
+<td>inF</td>
+<td>Input format</td>
+</tr>
+<tr>
+<td>outO</td>
+<td>Output operating system</td>
+</tr>
+<tr>
+<td>outP</td>
+<td>Output program</td>
+</tr>
+<tr>
+<td>outF</td>
+<td>output format</td>
+</tr>
+<tr>
+<td>sequential (true|false)</td>
+<td>Output in sequential form (ex: NEXUS, PHYLIP)</td>
+</tr>
+<tr>
+<td>match (true|false)</td>
+<td>Replace each character with '.' if it matches with the one at the place in first input sequence</td>
+</tr>
+<tr>
+<td>lowercase (true|false)</td>
+<td>Output sequences in lower case</td>
+</tr>
+<tr>
+<td>resNumbers (true|false)</td>
+<td>Output residue numbers (only in ALN format)</td>
+</tr>
+<tr>
+<td>collapse (true|false)</td>
+<td>Enable haplotype collapsing</td>
+</tr>
+<tr>
+<td>gapsAsMissing (true|false)</td>
+<td>Treat gaps as missing data in haplotype collapsing</td>
+</tr>
+<tr>
+<td>countMissing (true|false)</td>
+<td>Count missing data as differences when calculating sequence similarity on haplotype collapsing</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>Collapse sequences whose differences are less than this value</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<h3>Client examples</h3>
+You can use a web form or any programming environment able to perform HTTP Post requests.<br>
+<h4>Web form</h4>
+You can find an example form here: <A HREF="%%HOST%%/api/form">%%HOST%%/api/form</A></P>
+<h4>Python</h4>
+<pre><code>
+# -*- coding: utf-8 -*-
+import httplib, urllib
+
+# input sequence
+sequence='''
+#NEXUS
+BEGIN DATA;
+dimensions ntax=4 nchar=673;
+format missing=?
+symbols="ABCDEFGHIKLMNOPQRSTUVWXYZ"
+interleave datatype=PROTEIN gap= -;
+
+matrix
+M17718      ---------------------------MESGNVSSSLFGNVSTALRPEAR
+X65879      ---------------------------MEYHNVSS-VLGNVSSVLRPDAR
+M17730      ---------------------------MEPLCNAS------EPPLRPEAR
+X65880      ---------------------------MDALCNAS------EPPLRPEAR
+
+M17718      LSAET---RLLGWNVPPEELRHIPEHWL----------TYPEPPESMNYL
+X65879      LSAES---RLLGWNVPPDELRHIPEHWL----------IYPEPPESMNYL
+M17730      -SSGNGDLQFLGWNVPPDQIQYIPEHWL----------TQLEPPASMHYM
+X65880      MSSGSDELQFLGWNVPPDQIQYIPEHWL----------TQLEPPASMHYM
+
+M17718      LG------------------------TLYIFFTLMSMLGNGLVIWVFSAA
+X65879      LG------------------------TLYIFFTVISMIGNGLVMWVFSAA
+M17730      LG------------------------VFYIFLFCASTVGNGMVIWIFSTS
+X65880      LG------------------------VFYIFLFFASTLGNGMVIWIFSTS
+
+M17718      KSLRTPSNILVINLAFCDFMMMVKTPIFIYNSFHQGYA--LGHLGCQIFG
+X65879      KSLRTPSNILVINLAFCDFMMMIKTPIFIYNSFHQGYA--LGHLGCQIFG
+M17730      KSLRTPSNMFVLNLAVFDLIMCLKAP--IFNSFHRGFAIYLGNTWCQIFA
+X65880      KSLRTPSNMFVLNLAVFDLIMCLKAPIFIYNSFHRGFA--LGNTWCQIFA
+
+M17718      IIGSYTGIAAGATNAFIAYDRFNVITRPMEG--KMTHGKAIAMIIFIYMY
+X65879      VIGSYTGIAAGATNAFIAYDRYNVITRPMEG--KMTHGKAIAMIIFIYLY
+M17730      SIGSYSGIGAGMTNAAIGYDRYNVITKPMNR--NMTFTKAVIMNIIIWLY
+X65880      SIGSYSGIGAGMTNAAIGYDRYNVITKPMNR--NMTFTKAVIMNIIIWLY
+
+M17718      ATPWVVACYTETWGRFVPEGYLTSCTFDYLT--DNFDTRLFVACIFFFSF
+X65879      ATPWVVACYTESWGRFVPEGYLTSCTFDYLT--DNFDTRLFVACIFFFSF
+M17730      CTPWVVLPLTQFWDRFVPEGYLTSCSFDYLS--DNFDTRLFVGTIFFFSF
+X65880      CTPWVVLPLTQFWDRFVPEGYLTSCSFDYLS--DNFDTRLFVGTIFLFSF
+
+M17718      VCPTTMITYYYSQIVGHVF---------------SHEKALRDQAKKMNVE
+X65879      VCPTTMITYYYSQIVGHVF---------------SHEKALRDQAKKMNVD
+M17730      VCPTLMILYYYSQIVGHVF---------------SHEKALREQAKKMNVE
+X65880      VVPTLMILYYYSQIVGHVF---------------NHEKALREQAKKMNVE
+
+M17718      SLRSNVDKNKE---------------------------------------
+X65879      SLRSNVDKSKE---------------------------------------
+M17730      SLRSNVDKSKE---------------------------------------
+X65880      SLRSNVDKSKE---------------------------------------
+
+M17718      --------------------------------------------------
+X65879      --------------------------------------------------
+M17730      --------------------------------------------------
+X65880      --------------------------------------------------
+
+M17718      ------------TAEIRIAKAAITICFLFFCSWTPYGVMSLIGAFGDKTL
+X65879      ------------AAEIRIAKAAITICFLFFASWTPYGVMSLIGAFGDKTL
+M17730      ------------TAEIRIAKAAITICFLFFVSWTPYGVMSLIGAFGDKSL
+X65880      ------------TAEIRIAKAAITICFLFFVSWTPYGVMSLIGAFGDKSL
+
+M17718      ---LTPGATMIPACACKMVACIDPFVYAISHPRYRMELQKRCPWLALNEK
+X65879      ---LTPGATMIPACTCKMVACIDPFVYAISHPRYRMELQKRCPWLAISEK
+M17730      ---LTQGATMIPACTCKLVACIDPFVYAISHPRYRLELQKRCPWLGVNEK
+X65880      ---LTPGATMIPACTCKLVACIEPFVYAISHPRYRMELQKRCPWLGVNEK
+
+M17718      APE--SSAVASTSTTQEPQQTTAA--------------------------
+X65879      APE--SRAAISTSTTQEQQQTTAA--------------------------
+M17730      SGE--ISSAQSTTTQEQ-QQTTAA--------------------------
+X65880      SGE--ASSAQSTTTQEQTQQTSAA--------------------------
+
+M17718      --------------------------------------------------
+X65879      --------------------------------------------------
+M17730      --------------------------------------------------
+X65880      --------------------------------------------------
+
+M17718      -----------------------
+X65879      -----------------------
+M17730      -----------------------
+X65880      -----------------------
+;
+end;
+'''
+# conversion parameters (NOTE: these are not all possible parameters. Please see
+# the convert documentation, or take a look to the response, where all input parameters
+# are reported (including those that were not present in the request)
+params = urllib.urlencode({
+  'autodetect': 'false',
+  'inO': 'windows',
+  'inP': 'clustal',
+  'inF': 'NEXUS',
+  'gapsAsMissing': 'true',
+  'limit':0,
+  'outF':'aln',
+  'outO':'windows',
+  'outP':'general',
+  'sequence':sequence})
+
+# Make the request
+headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
+conn = httplib.HTTPConnection("sing.ei.uvigo.es")
+conn.request("POST", "/ALTER/api/convert", params, headers)
+response = conn.getresponse()
+data = response.read()
+
+# print the data
+print data
+conn.close()
+
+</code></pre>
+
+<h4>Perl</h4>
+<pre><code>
+use strict;
+use warnings;
+use LWP 5.64;
+
+my $sequence = &lt;&lt;END;
+#NEXUS
+BEGIN DATA;
+dimensions ntax=4 nchar=673;
+format missing=?
+symbols="ABCDEFGHIKLMNOPQRSTUVWXYZ"
+interleave datatype=PROTEIN gap= -;
+
+matrix
+M17718      ---------------------------MESGNVSSSLFGNVSTALRPEAR
+X65879      ---------------------------MEYHNVSS-VLGNVSSVLRPDAR
+M17730      ---------------------------MEPLCNAS------EPPLRPEAR
+X65880      ---------------------------MDALCNAS------EPPLRPEAR
+
+M17718      LSAET---RLLGWNVPPEELRHIPEHWL----------TYPEPPESMNYL
+X65879      LSAES---RLLGWNVPPDELRHIPEHWL----------IYPEPPESMNYL
+M17730      -SSGNGDLQFLGWNVPPDQIQYIPEHWL----------TQLEPPASMHYM
+X65880      MSSGSDELQFLGWNVPPDQIQYIPEHWL----------TQLEPPASMHYM
+
+M17718      LG------------------------TLYIFFTLMSMLGNGLVIWVFSAA
+X65879      LG------------------------TLYIFFTVISMIGNGLVMWVFSAA
+M17730      LG------------------------VFYIFLFCASTVGNGMVIWIFSTS
+X65880      LG------------------------VFYIFLFFASTLGNGMVIWIFSTS
+
+M17718      KSLRTPSNILVINLAFCDFMMMVKTPIFIYNSFHQGYA--LGHLGCQIFG
+X65879      KSLRTPSNILVINLAFCDFMMMIKTPIFIYNSFHQGYA--LGHLGCQIFG
+M17730      KSLRTPSNMFVLNLAVFDLIMCLKAP--IFNSFHRGFAIYLGNTWCQIFA
+X65880      KSLRTPSNMFVLNLAVFDLIMCLKAPIFIYNSFHRGFA--LGNTWCQIFA
+
+M17718      IIGSYTGIAAGATNAFIAYDRFNVITRPMEG--KMTHGKAIAMIIFIYMY
+X65879      VIGSYTGIAAGATNAFIAYDRYNVITRPMEG--KMTHGKAIAMIIFIYLY
+M17730      SIGSYSGIGAGMTNAAIGYDRYNVITKPMNR--NMTFTKAVIMNIIIWLY
+X65880      SIGSYSGIGAGMTNAAIGYDRYNVITKPMNR--NMTFTKAVIMNIIIWLY
+
+M17718      ATPWVVACYTETWGRFVPEGYLTSCTFDYLT--DNFDTRLFVACIFFFSF
+X65879      ATPWVVACYTESWGRFVPEGYLTSCTFDYLT--DNFDTRLFVACIFFFSF
+M17730      CTPWVVLPLTQFWDRFVPEGYLTSCSFDYLS--DNFDTRLFVGTIFFFSF
+X65880      CTPWVVLPLTQFWDRFVPEGYLTSCSFDYLS--DNFDTRLFVGTIFLFSF
+
+M17718      VCPTTMITYYYSQIVGHVF---------------SHEKALRDQAKKMNVE
+X65879      VCPTTMITYYYSQIVGHVF---------------SHEKALRDQAKKMNVD
+M17730      VCPTLMILYYYSQIVGHVF---------------SHEKALREQAKKMNVE
+X65880      VVPTLMILYYYSQIVGHVF---------------NHEKALREQAKKMNVE
+
+M17718      SLRSNVDKNKE---------------------------------------
+X65879      SLRSNVDKSKE---------------------------------------
+M17730      SLRSNVDKSKE---------------------------------------
+X65880      SLRSNVDKSKE---------------------------------------
+
+M17718      --------------------------------------------------
+X65879      --------------------------------------------------
+M17730      --------------------------------------------------
+X65880      --------------------------------------------------
+
+M17718      ------------TAEIRIAKAAITICFLFFCSWTPYGVMSLIGAFGDKTL
+X65879      ------------AAEIRIAKAAITICFLFFASWTPYGVMSLIGAFGDKTL
+M17730      ------------TAEIRIAKAAITICFLFFVSWTPYGVMSLIGAFGDKSL
+X65880      ------------TAEIRIAKAAITICFLFFVSWTPYGVMSLIGAFGDKSL
+
+M17718      ---LTPGATMIPACACKMVACIDPFVYAISHPRYRMELQKRCPWLALNEK
+X65879      ---LTPGATMIPACTCKMVACIDPFVYAISHPRYRMELQKRCPWLAISEK
+M17730      ---LTQGATMIPACTCKLVACIDPFVYAISHPRYRLELQKRCPWLGVNEK
+X65880      ---LTPGATMIPACTCKLVACIEPFVYAISHPRYRMELQKRCPWLGVNEK
+
+M17718      APE--SSAVASTSTTQEPQQTTAA--------------------------
+X65879      APE--SRAAISTSTTQEQQQTTAA--------------------------
+M17730      SGE--ISSAQSTTTQEQ-QQTTAA--------------------------
+X65880      SGE--ASSAQSTTTQEQTQQTSAA--------------------------
+
+M17718      --------------------------------------------------
+X65879      --------------------------------------------------
+M17730      --------------------------------------------------
+X65880      --------------------------------------------------
+
+M17718      -----------------------
+X65879      -----------------------
+M17730      -----------------------
+X65880      -----------------------
+;
+end;
+END
+
+
+my $browser = LWP::UserAgent->new;
+my $url = 'http://sing.ei.uvigo.es/ALTER/api/convert';
+
+# Request. (NOTE: these are not all possible parameters. Please see
+# the convert documentation, or take a look to the response, where all input parameters
+# are reported (including those that were not present in the request)
+my $response = $browser->post( $url,
+    [ 'autodetect'=> 'false',
+      'inO'=> 'windows',
+      'inP'=> 'clustal',
+      'inF'=> 'NEXUS',
+      'gapsAsMissing'=> 'true',
+      'limit'=>0,
+      'outF'=>'aln',
+      'outO'=>'windows',
+      'outP'=>'general',
+      'sequence'=>$sequence
+    ]
+  );
+
+die "$url error: ", $response->status_line unless $response->is_success;
+die "Weird content type at $url -- ", $response->content_type unless $response->content_type eq 'text/plain';
+
+print $response->content
+</code></pre>
+<H2 LANG="en-US" CLASS="western">ALTER Reflective API</H2>
+This set of functions gives access to the up-to-date supported input/output programs and formats, the available options per ouput program/format and the supported operating system.
+
+<ul>
+
+<li>List the available operating systems to read files from.<br>
+<a href="%%HOST%%/api/so">%%HOST%%/api/so</a>
+</li>
+<li>
+List the supported input programs.<br>
+<a href="%%HOST%%/api/input/programs">%%HOST%%/api/input/programs</a>
+</li>
+
+<li>
+List the supported input formats.<br>
+<a href="%%HOST%%/api/input/formats">%%HOST%%/api/input/formats</a>
+</li>
+
+<li>
+List the supported output programs.<br>
+<a href="%%HOST%%/api/output/programs">%%HOST%%/api/output/programs</a>
+</li>
+
+<li>
+List the supported output formats.<br>
+<a href="%%HOST%%/api/output/formats">%%HOST%%/api/output/formats</a>
+</li>
+
+<li>
+List the supported output formats for a given output program.<br>
+The structure of the URL is: %%HOST%%/api/output/{program}/formats<br>
+Example: <a href="%%HOST%%/api/output/paml/formats">%%HOST%%/api/output/paml/formats</a>
+</li>
+
+<li>
+List the supported options for a given output program and format.<br>
+The structure of the URL is: %%HOST%%/api/output/{program}/{format}/options<br>
+Example: <a href="%%HOST%%/api/output/paml/nexus/options">%%HOST%%/api/output/paml/nexus/options</a>
+</li>
+</ul>
+
+</BODY>
+</HTML>

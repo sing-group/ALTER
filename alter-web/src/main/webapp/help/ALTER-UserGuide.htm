@@ -1,0 +1,1576 @@
+<!--
+    This file is part of ALTER.
+
+    ALTER is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ALTER is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="ALTER-UserGuide_archivos/filelist.xml">
+<link rel=Edit-Time-Data href="ALTER-UserGuide_archivos/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>ALTER User's Guide</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="PlaceType"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="PlaceName"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="place"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Florentino Fdez-Riverola</o:Author>
+  <o:LastAuthor>lipido</o:LastAuthor>
+  <o:Revision>3</o:Revision>
+  <o:TotalTime>1783</o:TotalTime>
+  <o:LastPrinted>2009-12-29T08:47:00Z</o:LastPrinted>
+  <o:Created>2009-12-29T13:18:00Z</o:Created>
+  <o:LastSaved>2009-12-29T13:18:00Z</o:LastSaved>
+  <o:Pages>6</o:Pages>
+  <o:Words>1128</o:Words>
+  <o:Characters>6207</o:Characters>
+  <o:Company>Universidade de Vigo</o:Company>
+  <o:Lines>51</o:Lines>
+  <o:Paragraphs>14</o:Paragraphs>
+  <o:CharactersWithSpaces>7321</o:CharactersWithSpaces>
+  <o:Version>11.5606</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"Arial";
+	panose-1:3 8 4 2 3 2 5 11 4 4;
+	mso-font-charset:0;
+	mso-generic-font-family:script;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:"Lucida Grande";
+	mso-font-alt:"Courier New";
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;
+	font-style:italic;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial";
+	mso-fareast-font-family:"Arial";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Arial";
+	mso-fareast-font-family:"Arial";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 212.6pt right 425.2pt;
+	font-size:12.0pt;
+	font-family:"Arial";
+	mso-fareast-font-family:"Arial";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:center 212.6pt right 425.2pt;
+	font-size:12.0pt;
+	font-family:"Arial";
+	mso-fareast-font-family:"Arial";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:navy;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:" Car Car";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:9.0pt;
+	font-family:"Lucida Grande";
+	mso-fareast-font-family:"Arial";
+	mso-bidi-font-family:"Arial";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+span.CarCar
+	{mso-style-name:" Car Car";
+	mso-style-locked:yes;
+	mso-style-link:"Texto de globo";
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;
+	font-family:"Lucida Grande";
+	mso-ascii-font-family:"Lucida Grande";
+	mso-hansi-font-family:"Lucida Grande";
+	mso-ansi-language:ES;
+	mso-fareast-language:ES;}
+ /* Page Definitions */
+ @page
+	{mso-footnote-separator:url("ALTER-UserGuide_archivos/header.htm") fs;
+	mso-footnote-continuation-separator:url("ALTER-UserGuide_archivos/header.htm") fcs;
+	mso-endnote-separator:url("ALTER-UserGuide_archivos/header.htm") es;
+	mso-endnote-continuation-separator:url("ALTER-UserGuide_archivos/header.htm") ecs;
+	mso-facing-pages:yes;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+@page Section2
+	{size:595.3pt 841.9pt;
+	margin:70.9pt 3.0cm 70.9pt 3.0cm;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:35.45pt;
+	mso-page-numbers:1;
+	mso-even-header:url("ALTER-UserGuide_archivos/header.htm") eh2;
+	mso-header:url("ALTER-UserGuide_archivos/header.htm") h2;
+	mso-even-footer:url("ALTER-UserGuide_archivos/header.htm") ef2;
+	mso-footer:url("ALTER-UserGuide_archivos/header.htm") f2;
+	mso-paper-source:0;}
+div.Section2
+	{page:Section2;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:87773085;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-540654340 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:242836896;
+	mso-list-type:hybrid;
+	mso-list-template-ids:286556594 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:250891874;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1165533912 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:614486679;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1413894860 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:822115606;
+	mso-list-type:hybrid;
+	mso-list-template-ids:371742424 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l5
+	{mso-list-id:1529874057;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-760817998 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l6
+	{mso-list-id:1739211373;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1103008516 201981953 201981955 201981957 201981953 201981955 201981957 201981953 201981955 201981957;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Tabla normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Arial";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableGrid
+	{mso-style-name:"Tabla con cuadrícula";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Arial";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=ES-TRAD link=blue vlink=navy style='tab-interval:35.4pt'>
+
+<div class=Section1>
+
+
+<p class=MsoNormal style='text-align:justify'><span lang=ES><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=ES><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:263.25pt;
+ height:49.5pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image001.png" o:title="logo_big"/>
+</v:shape><![endif]--><![if !vml]><img width=351 height=66
+src="ALTER-UserGuide_archivos/image002.png" v:shapes="_x0000_i1025"><![endif]></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=ES><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=ES><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-GB
+style='font-size:26.0pt;font-family:"Arial";mso-bidi-font-family:
+Arial;mso-ansi-language:EN-GB'>ALTER<o:p></o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-GB style='font-size:26.0pt;font-family:"Arial";
+mso-bidi-font-family:Arial;mso-ansi-language:EN-GB'><span style="color:#880000">AL</span>igment <span style="color:#880000">T</span>ransformation <span style="color:#880000">E</span>nvi<span style="color:#880000">R</span>onment<o:p></o:p></span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-GB
+style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-GB
+style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-GB
+style='font-size:22.0pt;font-family:Arial;mso-ansi-language:EN-GB'>User guide<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+normal'><span lang=EN-GB style='mso-ansi-language:EN-GB'>This document will
+guide you through a step by step tutorial showing the capabilities of <span
+style='text-transform:uppercase'>ALTER</span> to both </span></i><span
+lang=EN-GB style='mso-ansi-language:EN-GB'>(<i style='mso-bidi-font-style:normal'>i</i>)<i
+style='mso-bidi-font-style:normal'> convert sequence file formats between
+existing tools and </i>(<i style='mso-bidi-font-style:normal'>i</i>)<i
+style='mso-bidi-font-style:normal'> collapse sequences to haplotypes (unique
+sequences).<o:p></o:p></i></span></p>
+<br><br>
+<p class=MsoNormal align=right style='text-align:left'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-GB style='font-size:18.0pt;font-family:Arial;mso-ansi-language:
+EN-GB'>Contents<o:p></o:p></span></b></p>
+
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><!--[if supportFields]><span
+lang=ES><span style='mso-element:field-begin'></span><span
+style='mso-spacerun:yes'> </span>TOC \o &quot;1-3&quot; \h \z \u <span
+style='mso-element:field-separator'></span></span><![endif]--><span lang=ES><span
+class=MsoHyperlink><span style='mso-no-proof:yes'><a href="#_Toc249859187"><b
+style='mso-bidi-font-weight:normal'><span lang=EN-GB style='font-family:"Arial";
+mso-ansi-language:EN-GB'>Background</span></b><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span></span><!--[if supportFields]><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-element:field-begin'></span></span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'> PAGEREF _Toc249859187 \h </span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>1</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100380037000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+style='mso-no-proof:yes'><o:p></o:p></span></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859188"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>STEP 1.- select
+format</span></b><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'> </span></span><!--[if supportFields]><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-element:field-begin'></span></span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'> PAGEREF _Toc249859188 \h </span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>2</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100380038000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859189"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>STEP 2.- upload
+or paste MSA</span></b><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-tab-count:
+1 dotted'>. </span></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-begin'></span></span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'> PAGEREF
+_Toc249859189 \h </span><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>2</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100380039000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859190"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>STEP 3.- select
+output and convert!</span></b><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-tab-count:1 dotted'> </span></span><!--[if supportFields]><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-element:field-begin'></span></span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'> PAGEREF _Toc249859190 \h </span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>3</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100390030000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859191"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>STEP 4.- save
+converted MSA</span></b><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-tab-count:
+1 dotted'>. </span></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-begin'></span></span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'> PAGEREF
+_Toc249859191 \h </span><span style='color:windowtext;display:none;mso-hide:
+screen;text-decoration:none;text-underline:none'><span style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>5</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100390031000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859192"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>ALTER log panels</span></b><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-tab-count:1 dotted'> </span></span><!--[if supportFields]><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-element:field-begin'></span></span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'> PAGEREF _Toc249859192 \h </span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>5</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100390032000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc1 style='tab-stops:right dotted 424.7pt'><span
+class=MsoHyperlink><span lang=ES style='mso-no-proof:yes'><a
+href="#_Toc249859193"><b style='mso-bidi-font-weight:normal'><span lang=EN-GB
+style='font-family:"Arial";mso-ansi-language:EN-GB'>Links and
+References</span></b><span style='color:windowtext;display:none;mso-hide:screen;
+text-decoration:none;text-underline:none'><span style='mso-tab-count:1 dotted'> </span></span><!--[if supportFields]><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'><span style='mso-element:field-begin'></span></span><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'> PAGEREF _Toc249859193 \h </span><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-separator'></span></span><![endif]--><span
+style='color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+text-underline:none'>7</span><span style='color:windowtext;display:none;
+mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003200340039003800350039003100390033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span style='color:windowtext;
+display:none;mso-hide:screen;text-decoration:none;text-underline:none'><span
+style='mso-element:field-end'></span></span><![endif]--></a></span></span><span
+lang=ES style='mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><!--[if supportFields]><span
+lang=ES><span style='mso-element:field-end'></span></span><![endif]--><span
+lang=ES><o:p>&nbsp;</o:p></span></p>
+
+
+
+</div>
+
+<span lang=ES style='font-size:12.0pt;font-family:"Times New Roman";mso-fareast-font-family:
+"Times New Roman";mso-ansi-language:ES;mso-fareast-language:ES;mso-bidi-language:
+AR-SA'><br clear=all style='page-break-before:always;mso-break-type:section-break'>
+</span>
+
+<div class=Section2>
+
+<h1 style='text-align:justify'><a name="_Toc249859187"><span lang=EN-GB
+style='font-size:26.0pt;font-family:"Arial";mso-ansi-language:EN-GB'>Background</span></a><span
+lang=EN-GB style='font-size:26.0pt;font-family:"Arial";mso-ansi-language:
+EN-GB'><o:p></o:p></span></h1>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>Multiple sequence alignment (MSA)
+can be read and written in a variety of <i style='mso-bidi-font-style:normal'>standard</i>
+formats. However, available software often does not exactly comply with the
+standards, so the task of converting a given MSA to another format correctly
+supported by a particular analysis program can be very confusing. ALTER aims to
+make life easier for users by taking into consideration both programs and
+formats. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>ALTER implements a straightforward
+workflow that easily guides the user through a 4-step wizard in which the
+different options are automatically activated when the required information is
+available. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>Currently, ALTER has been
+successfully tested in Internet Explorer 7, Firefox 3, Opera 9.62, Google Crome
+3.0.195.38 and Safari 3 working under Windows XP/Vista, Ubuntu Linux 8.04
+version and Mac OSX 10.6.<o:p></o:p></span></p>
+
+<b><span lang=EN-GB style='font-size:16.0pt;font-family:Arial;mso-fareast-font-family:
+"Times New Roman";mso-font-kerning:16.0pt;mso-ansi-language:EN-GB;mso-fareast-language:
+ES;mso-bidi-language:AR-SA'><br clear=all style='page-break-before:always'>
+</span></b>
+
+<h1><a name="_Toc249859188"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>STEP 1.- select format</span></a><span
+lang=EN-GB style='font-size:26.0pt;font-family:"Arial";mso-ansi-language:
+EN-GB'><o:p></o:p></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=564 valign=bottom style='width:423.1pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-right:-7.35pt;text-align:center'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1026"
+   type="#_x0000_t75" style='width:425.25pt;height:43.5pt'>
+   <v:imagedata src="ALTER-UserGuide_archivos/image003.png" o:title=""/>
+  </v:shape><![endif]--><![if !vml]><img width=567 height=58
+  src="ALTER-UserGuide_archivos/image004.jpg" v:shapes="_x0000_i1026"><![endif]><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>In this step the
+user provides information about the format of the MSA to be converted. If <span
+style='position:relative;top:3.0pt;mso-text-raise:-3.0pt'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1029" type="#_x0000_t75" style='width:69.75pt;height:15pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image005.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=93 height=20
+src="ALTER-UserGuide_archivos/image005.png" v:shapes="_x0000_i1029"><![endif]></span>is
+selected, ALTER automatically tries to recognize the format of the input MSA;
+otherwise the user can specify the required information. The following table
+shows the input programs and formats supported at this time by ALTER. This list
+will grow in the future according to perceived needs and user suggestions.<o:p></o:p></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Program<o:p></o:p></span></b></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Formats<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>Clustal<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>ALN,
+  FASTA, GDE, MSF, NEXUS, PHYLIP, PIR<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>MAFFT<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>ALN, FASTA<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>TCoffee<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>ALN,
+  FASTA, MSF, PHYLIP, PIR<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<h1><span lang=EN-GB style='font-size:12.0pt;mso-bidi-font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></h1>
+
+<h1><a name="_Toc249859189"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>STEP 2.- upload or
+paste MSA</span></a><span lang=EN-GB style='font-size:26.0pt;font-family:"Arial";
+mso-ansi-language:EN-GB'><o:p></o:p></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=564 valign=bottom style='width:423.1pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-right:-7.35pt;text-align:center'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1030"
+   type="#_x0000_t75" style='width:425.25pt;height:60pt'>
+   <v:imagedata src="ALTER-UserGuide_archivos/image006.png" o:title=""/>
+  </v:shape><![endif]--><![if !vml]><img width=567 height=80
+  src="ALTER-UserGuide_archivos/image007.jpg" v:shapes="_x0000_i1030"><![endif]><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>In order to
+correctly handle specific issues (i.e., line breaks, carriage returns, etc.)
+related to the operating system in which the input sequence file was created, the
+user can specify the source OS. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>By clicking the <span
+style='position:relative;top:5.0pt;mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1031" type="#_x0000_t75" style='width:55.5pt;height:17.25pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image008.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=74 height=23
+src="ALTER-UserGuide_archivos/image008.png" v:shapes="_x0000_i1031"><![endif]></span><span
+style='mso-spacerun:yes'> </span>button, a standard input dialog-box is
+accessible to select the input MSA file.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1032" type="#_x0000_t75" style='width:287.25pt;height:213.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image009.png" o:title="" croptop="335f"
+  cropright="182f"/>
+</v:shape><![endif]--><![if !vml]><img width=383 height=285
+src="ALTER-UserGuide_archivos/image010.jpg" v:shapes="_x0000_i1032"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>During file
+loading, a progress bar is automatically displayed;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1027"
+ type="#_x0000_t75" style='width:180pt;height:38.25pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image011.png" o:title="" croptop="21640f"
+  cropbottom="37672f" cropleft="14426f" cropright="34350f"/>
+</v:shape><![endif]--><![if !vml]><img width=240 height=51
+src="ALTER-UserGuide_archivos/image012.jpg" v:shapes="_x0000_i1027"><![endif]></span><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>For testing
+purposes, we also provide a <span style='position:relative;top:5.0pt;
+mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1028" type="#_x0000_t75"
+ style='width:94.5pt;height:16.5pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image013.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=126 height=22
+src="ALTER-UserGuide_archivos/image013.png" v:shapes="_x0000_i1028"><![endif]></span><span
+style='mso-spacerun:yes'> </span>button to load sample data in. Once the input
+MSA has been processed, its content is showed in read-only mode.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1033"
+ type="#_x0000_t75" style='width:425.25pt;height:333pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image014.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=567 height=444
+src="ALTER-UserGuide_archivos/image015.jpg" v:shapes="_x0000_i1033"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>All the relevant
+information related to the process of loading and recognizing the input data is
+automatically categorized (info, error, warning) and displayed in a series of
+log panels (refer to ALTER log panels section in this document for more
+information).<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><a name="_Toc249859190"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>STEP 3.- select output
+and convert!</span></a><span lang=EN-GB style='font-size:26.0pt;font-family:
+"Arial";mso-ansi-language:EN-GB'><o:p></o:p></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=564 valign=bottom style='width:423.1pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-right:-7.35pt;text-align:center'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1034"
+   type="#_x0000_t75" style='width:425.25pt;height:43.5pt'>
+   <v:imagedata src="ALTER-UserGuide_archivos/image016.png" o:title=""/>
+  </v:shape><![endif]--><![if !vml]><img width=567 height=58
+  src="ALTER-UserGuide_archivos/image017.jpg" v:shapes="_x0000_i1034"><![endif]><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>In this step the
+user provides information about both the program and the format desired for the
+output MSA. The following table shows the input programs and formats currently
+supported by ALTER. This list will grow in the future according to perceived
+needs and user suggestions.<o:p></o:p></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Program<o:p></o:p></span></b></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Formats<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>ANY<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>ALN,
+  FASTA, GDE, MEGA, MSF, NEXUS, PHYLIP, PIR<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>jModelTest<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>ALN,
+  FASTA, MSF, NEXUS, PHYLIP, PIR<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>MrBayes<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>NEXUS<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>PAML<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>NEXUS,
+  PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>PAUP<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>MEGA, MSF,
+  NEXUS, PHYLIP, PIR<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>PhyML<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>ProtTest<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>NEXUS,
+  PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>RAxML<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>TCS<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>NEXUS,
+  PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><i style='mso-bidi-font-style:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  mso-ansi-language:EN-GB'>CodABC<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+  style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>
+  PHYLIP<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+</table>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+margin-left:0cm;text-align:justify'><span lang=EN-GB style='font-family:Arial;
+mso-ansi-language:EN-GB'>Additionally, there are some options that control
+other aspects of the MSA generated. The user can activate/deactivate them in
+the <span style='position:relative;top:4.0pt;mso-text-raise:-4.0pt'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1035" type="#_x0000_t75" style='width:42.75pt;height:15pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image018.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=57 height=20
+src="ALTER-UserGuide_archivos/image018.png" v:shapes="_x0000_i1035"><![endif]></span><span
+style='mso-spacerun:yes'> </span>tab of the <span style='position:relative;
+top:4.0pt;mso-text-raise:-4.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1036"
+ type="#_x0000_t75" style='width:93pt;height:15.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image019.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=124 height=21
+src="ALTER-UserGuide_archivos/image019.png" v:shapes="_x0000_i1036"><![endif]></span><span
+style='mso-spacerun:yes'> </span>panel.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=ES><img 
+src="ALTER-UserGuide_archivos/image020.png"></span><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>A brief
+explanation about each option is given in the following table.<o:p></o:p></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=96 style='width:72.0pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Parameter<o:p></o:p></span></b></p>
+  </td>
+  <td width=468 style='width:351.0pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Description<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Lower case<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Outputs
+  the sequences using lower case characters.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Match encoding<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Uses
+  <i style='mso-bidi-font-style:normal'>match</i> characters (character “.”) to
+  indicate that the same residue is located in the same position of the first
+  sequence. This option is not available for MSF format since it prints gaps as
+  “.” characters.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Residue numbers<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Outputs
+  the sum of the number of residues to that point next to each line of each
+  sequence. This option is only available for ALN format.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Sequential<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Outputs
+  the sequences in sequential format. This option is only available for NEXUS
+  and PHYLIP formats.<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+margin-left:0cm;text-align:justify'><span lang=EN-GB style='font-family:Arial;
+mso-ansi-language:EN-GB'>SEQUENCE COLLAPSING<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+margin-left:0cm;text-align:justify'><span lang=EN-GB style='font-family:Arial;
+mso-ansi-language:EN-GB'>Importantly, ALTER can collapse sequences to
+haplotypes (unique sequences) during the conversion among formats. The options
+controlling this transformation are available in the <span style='position:
+relative;top:3.0pt;mso-text-raise:-3.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1038"
+ type="#_x0000_t75" style='width:100.5pt;height:12.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image021.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=134 height=17
+src="ALTER-UserGuide_archivos/image021.png" v:shapes="_x0000_i1038"><![endif]></span><span
+style='mso-spacerun:yes'> </span>tab of the <span style='position:relative;
+top:4.0pt;mso-text-raise:-4.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1039"
+ type="#_x0000_t75" style='width:93pt;height:15.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image019.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=124 height=21
+src="ALTER-UserGuide_archivos/image019.png" v:shapes="_x0000_i1039"><![endif]></span><span
+style='mso-spacerun:yes'> </span>panel.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=ES><img 
+src="ALTER-UserGuide_archivos/image022.png"></span><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>A brief
+explanation about each option is given in the following table.<o:p></o:p></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=96 style='width:72.0pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Parameter<o:p></o:p></span></b></p>
+  </td>
+  <td width=468 style='width:351.0pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:black;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-GB style='font-size:10.0pt;font-family:Arial;
+  color:white;mso-ansi-language:EN-GB'>Description<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Collapse sequences to haplotypes<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>This
+  option enables the haplotype collapse feature. When checked, it activates the
+  rest of the options to handle this process.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Treat gaps as missing data<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Indicates
+  if gaps should be treated as missing data or not. If this option is not
+  checked, gaps are treated as a fifth state.<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=96 valign=top style='width:72.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-GB style='font-size:10.0pt;
+  font-family:Arial;mso-ansi-language:EN-GB'>Count missing data as differences<o:p></o:p></span></i></p>
+  </td>
+  <td width=468 valign=top style='width:351.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+  lang=EN-GB style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-GB'>Indicates
+  if missing data should be counted as differences or not. If this option is
+  not checked, missing data is treated as any other kind of residue.<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+margin-left:0cm;text-align:justify'><span lang=EN-GB style='font-family:Arial;
+mso-ansi-language:EN-GB'>By pressing the <span style='position:relative;
+top:5.0pt;mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1041"
+ type="#_x0000_t75" style='width:58.5pt;height:18pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image024.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=78 height=24
+src="ALTER-UserGuide_archivos/image024.png" v:shapes="_x0000_i1041"><![endif]></span><span
+style='mso-spacerun:yes'> </span>button ALTER generates the output MSA file for
+the specified program and format. All the relevant information related with the
+process of converting and/or collapsing the source file is automatically
+categorized (info, error, warning) and displayed by ALTER through a series of
+log panels (refer to ALTER log panels section in this document for more
+information).<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;
+margin-left:0cm;text-align:justify'><span lang=EN-GB style='font-family:Arial;
+mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><a name="_Toc249859191"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>STEP 4.- save converted
+MSA</span></a><span lang=EN-GB style='font-size:26.0pt;font-family:"Arial";
+mso-ansi-language:EN-GB'><o:p></o:p></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=564 valign=bottom style='width:423.15pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-right:-7.35pt;text-align:center'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1042"
+   type="#_x0000_t75" style='width:424.5pt;height:261.75pt'>
+   <v:imagedata src="ALTER-UserGuide_archivos/image025.png" o:title=""/>
+  </v:shape><![endif]--><![if !vml]><img width=566 height=349
+  src="ALTER-UserGuide_archivos/image026.jpg" v:shapes="_x0000_i1042"><![endif]><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'>In order to
+download the resulting MSA, the user has to specify the target operating system.
+By clicking the <span style='position:relative;top:5.0pt;mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1043" type="#_x0000_t75" style='width:49.5pt;height:16.5pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image027.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=66 height=22
+src="ALTER-UserGuide_archivos/image027.png" v:shapes="_x0000_i1043"><![endif]> </span>button,
+a window panel opens offering the user the capability of selecting the download
+location.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:6.0pt;text-align:justify'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><a name="_Toc249859192"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>ALTER log panels</span></a><span
+style='mso-bookmark:_Toc249859192'></span><span lang=EN-GB style='mso-ansi-language:
+EN-GB'><o:p></o:p></span></h1>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;border:none;mso-border-alt:
+ solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=564 valign=bottom style='width:423.1pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='margin-right:-7.35pt;text-align:center'><span
+  lang=EN-GB style='mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape id="_x0000_i1044"
+   type="#_x0000_t75" style='width:425.25pt;height:66pt'>
+   <v:imagedata src="ALTER-UserGuide_archivos/image028.png" o:title=""/>
+  </v:shape><![endif]--><![if !vml]><img width=567 height=88
+  src="ALTER-UserGuide_archivos/image029.jpg" v:shapes="_x0000_i1044"><![endif]><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>All the information related
+with the conversion of MSA files is automatically classified by ALTER using
+three main categories: <i style='mso-bidi-font-style:normal'>info</i>, <i
+style='mso-bidi-font-style:normal'>error</i> and <i style='mso-bidi-font-style:
+normal'>warning</i>. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>Each panel is independent and
+it has its own buttons for saving (<span style='position:relative;top:5.0pt;
+mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape id="_x0000_i1045" type="#_x0000_t75"
+ style='width:15.75pt;height:18.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image030.png" o:title="" croptop="862f"
+  cropbottom="37236f" cropleft="6141f" cropright="15453f"/>
+</v:shape><![endif]--><![if !vml]><img width=21 height=25
+src="ALTER-UserGuide_archivos/image031.jpg" v:shapes="_x0000_i1045"><![endif]></span>)
+and deleting (<span style='position:relative;top:5.0pt;mso-text-raise:-5.0pt'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1046" type="#_x0000_t75" style='width:18pt;height:18.75pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image030.png" o:title="" croptop="35038f"
+  cropbottom="3926f" cropleft="2958f" cropright="11961f"/>
+</v:shape><![endif]--><![if !vml]><img width=24 height=25
+src="ALTER-UserGuide_archivos/image032.jpg" v:shapes="_x0000_i1046"><![endif]></span>)
+the information displayed. Moreover, the left and right panels can be minimized
+in order to gain space for the error panel.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'>Below, some examples of
+different program outputs are showed:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1047" type="#_x0000_t75" style='width:424.5pt;height:116.25pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image033.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=566 height=155
+src="ALTER-UserGuide_archivos/image034.jpg" v:shapes="_x0000_i1047"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1048" type="#_x0000_t75" style='width:425.25pt;height:110.25pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image035.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=567 height=147
+src="ALTER-UserGuide_archivos/image036.jpg" v:shapes="_x0000_i1048"><![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='font-family:Arial;mso-ansi-language:EN-GB'><!--[if gte vml 1]><v:shape
+ id="_x0000_i1049" type="#_x0000_t75" style='width:425.25pt;height:116.25pt'>
+ <v:imagedata src="ALTER-UserGuide_archivos/image037.png" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img width=567 height=155
+src="ALTER-UserGuide_archivos/image038.jpg" v:shapes="_x0000_i1049"><![endif]><o:p></o:p></span></p>
+
+<span lang=EN-GB style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-GB;mso-fareast-language:
+ES;mso-bidi-language:AR-SA'><br clear=all style='mso-special-character:line-break;
+page-break-before:always'>
+</span>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB
+style='mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<h1><a name="_Toc249859193"><span lang=EN-GB style='font-size:26.0pt;
+font-family:"Arial";mso-ansi-language:EN-GB'>Links and References</span></a><span
+style='mso-bookmark:_Toc249859193'></span><span lang=EN-GB style='mso-ansi-language:
+EN-GB'><o:p></o:p></span></h1>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[PROGRAMS]<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[input]<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[1]<span style='mso-tab-count:2'>        </span>Clustal:
+<a href="http://www.clustal.org">http://www.clustal.org/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[2]<span style='mso-tab-count:2'>        </span>MAFFT:
+<a href="http://align.bmr.kyushu-u.ac.jp/mafft/software/">http://align.bmr.kyushu-u.ac.jp/mafft/software/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[3]<span style='mso-tab-count:2'>        </span>T-Coffee: <a href="http://www.tcoffee.org/">http://www.tcoffee.org/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[output]<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[4]<span style='mso-tab-count:2'>        </span>jModelTest: <a href="http://darwin.uvigo.es/software/jmodeltest.html">
+http://darwin.uvigo.es/software/jmodeltest.html</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[5]<span style='mso-tab-count:2'>        </span>MrBayes: <a href="http://www.mrbayes.net">http://www.mrbayes.net</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[6]<span style='mso-tab-count:2'>        </span>PAML: <a href="http://abacus.gene.ucl.ac.uk/software/paml.html">
+http://abacus.gene.ucl.ac.uk/software/paml.html</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=DE style='font-family:Arial;mso-ansi-language:
+DE'>[7]<span style='mso-tab-count:2'>        </span>PAUP: <a href="http://paup.csit.fsu.edu/">
+http://paup.csit.fsu.edu/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=DE style='font-family:Arial;mso-ansi-language:
+DE'>[8]<span style='mso-tab-count:2'>        </span>PhyML: <a href="http://www.atgc-montpellier.fr/phyml/">
+http://www.atgc-montpellier.fr/phyml/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=DE style='font-family:Arial;mso-ansi-language:
+DE'>[9]<span style='mso-tab-count:2'>        </span>ProtTest: <a href="http://darwin.uvigo.es/software/prottest.html">
+http://darwin.uvigo.es/software/prottest.html</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=DE style='font-family:Arial;mso-ansi-language:
+DE'>[10]<span style='mso-tab-count:1'>     </span>RAxML: <a href="http://icwww.epfl.ch/~stamatak/index-Dateien/Page443.htm">
+http://icwww.epfl.ch/~stamatak/index-Dateien/Page443.htm</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[11]<span style='mso-tab-count:1'>     </span>TCS: <a href="http://darwin.uvigo.es/software/tcs.html">
+http://darwin.uvigo.es/software/tcs.html</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[12]<span style='mso-tab-count:1'>     </span>CodABC: <a href="https://code.google.com/p/codabc/">
+https://code.google.com/p/codabc/</a><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify;tab-stops:18.0pt'><span
+lang=EN-GB style='font-family:Arial;mso-ansi-language:EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[FORMATS]<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify;text-indent:
+-36.0pt;tab-stops:36.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'>[12]<span style='mso-tab-count:1'>      </span>The Phylogenetic
+Handbook: A Practical Approach to Phylogenetic Analysis and Hypothesis Testing,
+2nd Edition. (2009). Philippe Lemey, Marco Salemi and Anne-Mieke Vandamme
+(Editors). <st1:place w:st="on"><st1:PlaceName w:st="on">Cambridge</st1:PlaceName>
+ <st1:PlaceType w:st="on">University</st1:PlaceType></st1:place> Press. ISBN
+978-0-521-87710-7.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify;text-indent:
+-18.0pt;tab-stops:18.0pt'><span lang=EN-GB style='font-family:Arial;mso-ansi-language:
+EN-GB'><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(MsfParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Msf;
+import es.uvigo.ei.sing.alter.types.MsfSequence;
+import java.io.StringReader;
+import java.util.Vector;
+
+/**
+* MSF format parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+public class MsfParser
+{
+  /**
+  * Static method that parses an input string and returns a MSA in MSF format.
+  * @param in Input string.
+  * @return MSA in MSF format.
+  */
+  public static Msf parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        MsfParser parser = new MsfParser(new StringReader(in));
+        return parser.Msf();
+    }
+}
+
+PARSER_END(MsfParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["B"-"M"] | "O" | ["Q"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9",".","N","P","A","?","-"] >
+
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines until
+* "PileUp", "!!AA_MULTIPLE_ALIGNMENT" or "!!NA_MULTIPLE_ALIGNMENT".<br>
+* &nbsp;&nbsp;2. "PileUp", "!!AA_MULTIPLE_ALIGNMENT" or
+* "!!NA_MULTIPLE_ALIGNMENT".<br>
+* &nbsp;&nbsp;3. Any combination of characters until "MSF:".<br>
+* &nbsp;&nbsp;4. "MSF:" followed by the MSA's length, "Type:"
+* followed by the MSA's type and "Check:" followed by the MSA's total checksum.
+* This lines ends with ".."<br>
+* &nbsp;&nbsp;5. Sequence information block made up by lines starting with
+* "Name:" followed by the sequence identifier and " oo"
+* as a sequence identifier end delimiter, "Len:" followed by the sequence length
+* (all must be equal), "Check:" followed by the sequence checksum and
+* "Weight" followed by the sequence weight.<br>
+* &nbsp;&nbsp;6. "//" as an information block delimiter.<br>
+* &nbsp;&nbsp;7. Aligned sequences.
+* @return MSA in MSF format.
+*/
+Msf Msf():
+{
+    Vector<MsfSequence> seqs = new Vector<MsfSequence>();
+    String id,data;
+    Token type;
+    int total_length, length, total_check, check;
+    float weight;
+    int cont = 0;
+}
+{
+    (<BLANK> | <EOL>)*
+    (
+        "PileUp"
+    |
+        "!!AA_MULTIPLE_ALIGNMENT"
+    |
+        "!!NA_MULTIPLE_ALIGNMENT"
+    )
+    (<EOL> | <BLANK> | <UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | "-"
+        | "//" | "." | ".." | " oo" | "A" | "N" | "P" | "?" | "PileUp" | "!!AA_MULTIPLE_ALIGNMENT"
+        | "!!NA_MULTIPLE_ALIGNMENT")*
+
+    "MSF:" (<BLANK>)* total_length = Number() (<BLANK>)*
+    "Type:" (<BLANK>)* (type = "N" | type = "P" | type = "A" )
+    (<EOL> | <BLANK> | <UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | "-"
+        | "//" | "." | ".." | " oo" | "A" | "N" | "P" | "?" | "PileUp" | "!!AA_MULTIPLE_ALIGNMENT"
+        | "!!NA_MULTIPLE_ALIGNMENT")*
+    "Check:" (<BLANK>)* total_check = Number() (<BLANK>)* ".." (<BLANK>)* (<EOL>)+
+
+    ( 
+        (<BLANK>)* "Name:" (<BLANK>)* id = Id() (" oo" (<BLANK>)+)*
+        "Len:" (<BLANK>)* length = Number()
+        (<BLANK>)* "Check:" (<BLANK>)* check = Number()
+        (<BLANK>)* "Weight:" (<BLANK>)* weight = Float() (<BLANK>)* (<EOL>)+
+        {
+            seqs.add(new MsfSequence(id,length,check,weight,""));
+        }
+    )+
+    "//" (<BLANK>)*
+    (<EOL> (<BLANK>)*)+
+
+    (
+        IdSeq(seqs.elementAt(cont).getId()) <BLANK> data = DataLine() ((<EOL> (<BLANK>)*)+ | <EOF>)
+        {
+            seqs.elementAt(cont).concat(data);
+            cont++;
+            if (cont == seqs.size())
+                cont = 0;
+        }
+    )+
+
+    <EOF>
+
+    {
+        return new Msf(seqs, total_length, type.image, total_check);
+    }
+
+}
+
+
+/**
+* Parses a number.
+* @return Parsed number.
+*/
+int Number():
+{
+    String s = "";
+    Token t;
+}
+{
+    (t = <NUMBER>
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return Integer.parseInt(s);
+    }
+}
+
+/**
+* Parses a floating point number.
+* @return Parsed float.
+*/
+Float Float():
+{
+    int n1, n2;
+}
+{
+    n1 = Number()
+    "."
+    n2 = Number()
+    {
+        return Float.parseFloat(String.valueOf(n1) + "." + String.valueOf(n2));
+    }
+}
+
+/**
+* Parses a sequence identifier. An identifier can be made up of any sequence
+* of characters, including spaces and tabs, but it must not start with any of those.
+* The string " oo" indicates the end of the identifier.
+* @return Sequence identifier.
+*/
+String Id():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY> | t = "-"
+        | t = "." | t = "//" | t= ".." | t = "N" | t = "P" | t = "A" | t = "?"
+        | t = "PileUp" | t = "!!AA_MULTIPLE_ALIGNMENT" | t = "!!NA_MULTIPLE_ALIGNMENT")
+        {
+            s.append(t.image);
+        }
+    )
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY> | t = "-"
+        | t = "." | t = "//" | t= ".." | t = "N" | t = "P" | t= "A" | t = "?"
+        | t = "PileUp" | t = "!!AA_MULTIPLE_ALIGNMENT" | t = "!!NA_MULTIPLE_ALIGNMENT")
+        {
+            s.append(t.image);
+        }
+    )*
+    {
+        return s.toString().trim();
+    }
+}
+
+/**
+* Same behaviour as Id(), but in this case equality between the already read
+* identifier and the current one is checked.
+* @param id Identifier to parse.
+*/
+void IdSeq(String id):
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY> | t = "-"
+        | t = "." | t = "//" | t= ".." | t = "N" | t = "P" | t = "A" | t = "?"
+        | t = "PileUp" | t = "!!AA_MULTIPLE_ALIGNMENT" | t = "!!NA_MULTIPLE_ALIGNMENT")
+        {
+            s.append(t.image);
+            if (id.length() == s.length())
+                if (id.equals(s.toString()))
+                    return;
+                else
+                    throw new ParseException("ID for sequence \"" + id 
+                            + "\"does not match with ID in line " + t.beginLine);
+
+        }
+    )
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY> | t = "-"
+        | t = "." | t = "//" | t= ".." | t = "N" | t = "P" | t = "A" | t = "?"
+        | t = "PileUp" | t = "!!AA_MULTIPLE_ALIGNMENT" | t = "!!NA_MULTIPLE_ALIGNMENT")
+        {
+            s.append(t.image);
+            if (id.length() == s.length())
+                if (id.equals(s.toString()))
+                    return;
+                else
+                    throw new ParseException("ID for sequence \"" + id 
+                            + "\"does not match with ID in line " + t.beginLine);
+        }
+    )*
+    {
+        throw new ParseException("ID for sequence \"" + id
+                            + "\"does not match with ID in line " + t.beginLine);
+    }
+}
+
+/**
+* Parses a data line. A data line can be made up of characters from "A" to "Z"
+* (lowercase and uppercase), "." or "?". Spaces and tabs are omitted.
+* @return String with the data line (always uppercase).
+*/
+String DataLine():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        t = <BLANK>
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "." | t = ".." | t = "N" | t = "P" | t = "A" | t = "?" | t = "-" )
+            {
+                s.append(t.image);
+            }
+        )
+    )+
+    {
+        return (s.toString().toUpperCase()).replace('.','-');
+    }
+}

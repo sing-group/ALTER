@@ -1,0 +1,163 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(PirParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Pir;
+import es.uvigo.ei.sing.alter.types.PirSequence;
+import java.io.StringReader;
+import java.util.Vector;
+
+/**
+* PIR format parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+public class PirParser
+{
+    /**
+    * Static method that parses an input string and returns a MSA in PIR format.
+    * @param in Input string.
+    * @return MSA in PIR format.
+    */
+    public static Pir parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        PirParser parser = new PirParser(new StringReader(in));
+        return parser.Pir();
+    }
+}
+
+PARSER_END(PirParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9",";",">","*","-",".","?"] >
+
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines until ">".<br>
+* &nbsp;&nbsp;2. Sequences with the following format:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2a. ">".<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2b. Sequence type.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2c. ";".<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2d. Sequence identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2e. New line.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2f. Description.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2g. New line.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;2h. Sequence data.<br>
+* @return MSA in PIR format.
+*/
+Pir Pir():
+{
+    Vector<PirSequence> seqs =  new Vector<PirSequence>();
+    String type, id, desc, data;
+    desc = "";
+}
+{
+    (<EOL> | <BLANK>)*
+    (
+        ">" (<BLANK>)* type = Type() (<BLANK>)* ";" id = Line() <EOL>
+        (desc = Line() <EOL> | <EOL>)
+        data = Data() "*" (<EOL> | <BLANK>)*
+        {
+            seqs.add(new PirSequence(id,type,desc,data));
+        }
+    )+
+    <EOF>
+    {
+        return new Pir(seqs);
+    }
+}
+
+/**
+* Parses a PIR style type.
+* @return Type.
+*/
+String Type():
+{
+    Token t1, t2;
+}
+{
+    t1 = <UPPER_CASE> (t2 = <UPPER_CASE> | t2 = <NUMBER>)
+    {
+        return t1.image + t2.image;
+    }
+}
+
+/**
+* Parses a line made up of any character sequence.
+* @return Parsed line.
+*/
+String Line():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> |
+        t = <ANY> | t = ">" | t = ";" | t = "*" | t = "-" | t = "." | t = "?" )
+        {
+            s.append(t.image);
+        }
+    )+
+    {
+        return s.toString().trim();
+    }
+}
+
+/**
+* Parses sequence data. These data can be made up of any characters
+* from "A" to "Z" (lowercase and uppercase), "-", "." or "?".
+* Spaces, tabs and new lines are omitted.
+* @return String with the sequence data (uppercase always).
+*/
+String Data():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <BLANK> | t = <EOL>)
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?" )
+            {
+                s.append(t.image);
+            }
+        )
+    )+
+    {
+        return s.toString().toUpperCase();
+    }
+}

@@ -1,0 +1,401 @@
+<!--
+    This file is part of ALTER.
+
+    ALTER is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ALTER is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<?meta description="ALTER is a bioinformatics tool for MSA (Multiple Sequence Alignment) format conversion. ALTER is more focused on programs rather than cononical formats." keywords="bioinformatics, msa, multiple sequence alignment, bioinformatics tool, phylogenetics"?>
+
+<?link href="styles.css" rel="stylesheet" type="text/css" ?>
+<?link href="favicon.ico" rel="shortcut icon" type="image/x-icon" ?>
+<?page title="ALTER (ALignment Transformation EnviRonment)"?>
+
+
+<window id="converter" use="es.uvigo.ei.sing.alter.web.Controller" border="0" width="100%" height="100%"  xmlns:w="http://www.zkoss.org/2005/zk/client" style="min-height:1000px;min-width:1100px" onCreate="converter.initialize()">
+    <borderlayout>
+        <north border="0">
+		<vbox width="100%">
+		<div id="popups">
+			<popup id="feedback">
+			<vbox>
+			<hbox width="300px">Your email: <textbox id="email" hflex="1" width="100%"/></hbox>
+			<hbox width="300px">Subject: <textbox id="subject" hflex="1" width="100%"/></hbox>
+			Suggestion/Request/Bug Report:
+			<textbox id="emailbody" width="300px" multiline="true" height="100px"/>
+			<hbox width="300px">Attachment (max. 5Mb): <label id="attachmentLabel" hflex="1"/><label visible="false" id="attachmentTempLabel" hflex="1"/><button id="uploadbutton" label="upload..." upload="true,native">
+			<attribute name="onUpload">
+				import java.io.*;
+				File temp = File.createTempFile("alter_attachment",".data");
+				if (event.getMedia().isBinary()){
+				  FileOutputStream out = new FileOutputStream(temp);
+				  if (event.getMedia().inMemory()){
+
+				    byte[] data = event.getMedia().getByteData();
+				    out.write(data);
+				    out.close();
+				  }else{
+				    InputStream in = event.getMedia().getStreamData();
+				    int readed = -1;
+				    byte[] data = new byte[1024];
+				    while ((readed=in.read(data))!=-1){
+				      out.write(data, 0, readed);
+				    }
+				    out.close();
+				  }
+				}
+				else{
+				  FileWriter out = new FileWriter(temp);
+				  if (event.getMedia().inMemory()){
+				    String data = event.getMedia().getStringData();
+				    out.write(data);
+				    out.close();
+				  }else{
+				    Reader in = event.getMedia().getReaderData();
+				    int readed = -1;
+				    char[] data = new char[1024];
+				    while ((readed=in.read(data))!=-1){
+				      out.write(data, 0, readed);
+				    }
+				    out.close();
+				  }
+				}
+
+
+				attachmentTempLabel.setValue(temp.getAbsolutePath());
+				attachmentLabel.setValue(event.getMedia().getName());
+
+	    			//Messagebox.show("Attached "+temp.length()+" bytes");
+			</attribute>
+			</button>
+			</hbox>
+			<hbox>
+			  <button label="send" >
+			  <attribute name="onClick"><![CDATA[
+			    converter.sendEmail();feedback.close();Messagebox.show("Thank you. We will answer as soon as possible.", "Mail sent", Messagebox.OK, Messagebox.INFORMATION);
+			  ]]>
+			  </attribute>
+			  </button>
+			  <button label="cancel" onClick="feedback.close()"/>
+			</hbox>
+			</vbox>
+
+			</popup>
+			
+			<popup id="citing">
+			<vbox>
+			<label>Please cite us in your work:</label>
+			<label>D. Glez-Peña; D. Gómez-Blanco; M. Reboiro-Jato; F. Fdez-Riverola; D. Posada
+(2010) ALTER: program-oriented format conversion of DNA and protein
+alignments. Nucleic Acids Research. Web Server issue. ISSN: 0305-1048</label><a href="http://dx.doi.org/10.1093/nar/gkq321" target="_blank">http://dx.doi.org/10.1093/nar/gkq321</a>
+			<button label="Ok"> <attribute name="onClick"><![CDATA[
+			    citing.close();]]>
+			  </attribute></button>
+			</vbox>
+			</popup>
+		</div>
+		<hbox width="100%" pack="stretch">
+		<hbox style="float:left;">
+		<image src="img/help.png"/><html><![CDATA[<a href="help/ALTER-UserGuide.htm" target="_blank">Help</a>]]></html> | <image src="img/citing.png"/><label style="color:blue;text-decoration:underline;cursor:pointer" popup="citing">citing</label> | 
+		<image src="img/irkick.png"/><label style="color:blue;text-decoration:underline;cursor:pointer" popup="feedback">feedback</label> |
+		<image src="img/mail.png"></image><html><![CDATA[contact: <a href="mailto:alter@sing.ei.uvigo.es">alter@sing.ei.uvigo.es</a>]]></html>
+		</hbox>
+		<hbox style="float:right;">
+		<image src="img/source.png"/><html><![CDATA[<a href="http://sourceforge.net/projects/alterconverter/" target="_blank">Source code</a>]]></html><image src="img/konsole.png"/><html><![CDATA[<a href="api/" target="_blank">Web service for developers</a>]]></html>
+		</hbox>
+
+
+		</hbox>
+            <include src="banner.html" width="100%" hflex="1"/></vbox>
+        </north>
+        <center border="0" style="padding-top:20px;padding-right:20px;padding-left:20px;padding-bottom:20px;" flex="true">
+            <borderlayout>
+                <west border="0" size="50%" style="padding-right:10px;padding-bottom:20px">
+                    <borderlayout>
+                        <north id="step1" border="normal" title=" " collapsible="true" zclass="step1">
+                            <div style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                <checkbox id="autodetect" label="Autodetect"
+                                    onCheck="converter.onAutodetectCheck()" />
+                                <html id="orInputProgram"><![CDATA[<b>OR</b>]]></html>
+                                <label id="inputProgramLabel">
+                                     select program
+                                </label>
+                                <listbox id="inputProgram" mold="select"
+                                    onSelect="converter.onInputProgramSelect()">
+                                    <listitem label="&lt;select&gt;" />
+                                    <listitem label="Clustal" />
+                                    <listitem label="MAFFT" />
+                                    <listitem label="MUSCLE" />
+                                    <listitem label="PROBCONS" />
+                                    <listitem label="TCoffee" />
+                                </listbox>
+                                <html sclass="gray" id="andInputFormat"><![CDATA[<b>AND</b>]]></html>
+                                <label id="inputFormatLabel" sclass="gray">
+                                    format
+                                </label>
+                                <listbox id="inputFormat" mold="select" disabled="true"
+                                    onSelect="converter.onInputFormatSelect()">
+                                    <listitem label="&lt;select&gt;" />
+                                    <listitem label="ALN" />
+                                    <listitem label="FASTA" />
+                                    <listitem label="GDE" />
+                                    <listitem label="MSF" />
+                                    <listitem label="NEXUS" />
+                                    <listitem label="PHYLIP" />
+                                    <listitem label="PIR" />
+                                </listbox>
+                            </div>
+                        </north>
+                        <center border="0" style="padding-top:20px;">
+                            <borderlayout>
+                                <center id="step2" border="normal" title=" " zclass="step2bw">
+                                    <borderlayout>
+                                        <north border="0" style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                            <vbox>
+                                            <div>
+                                                <label id="inputOSLabel" sclass="gray">
+                                                    Select operating system
+                                                </label>
+                                                <listbox id="inputOS" mold="select" rows="1" disabled="true">
+                                                    <listitem label="Linux/Mac OS X" value="Linux"/>
+                                                    <listitem label="Mac OS" value="MacOS"/>
+                                                    <listitem label="Windows" value="Windows"/>
+                                                </listbox>
+                                                <html sclass="gray" id="andLoad"><![CDATA[<b>AND</b>]]></html>
+                                                <button style="margin-bottom:2px" id="load" label="upload..." upload="true,native" onUpload="converter.load(event)" disabled="true"/>
+                                             </div>
+                                             <div>
+                                                <html sclass="gray" id="orPaste"><![CDATA[<b>OR</b>]]></html>
+                                                <label id="pasteLabel" sclass="gray">
+                                                    paste your MSA below
+                                                </label>
+                                                <button id="paste" label="use sample MSA" onClick="converter.onPasteSample()" disabled="true"/>
+                                            </div>
+                                            </vbox>
+                                         </north>
+                                         <center border="0" style="padding-left:5px;padding-right:5px;padding-bottom:5px;" >
+                                            <textbox id="input" w:onFocus="document.getElementById(this.uuid).setAttribute('wrap','off');">
+                                                    <attribute name="tabbable">true</attribute>
+                                                    <attribute name="hflex">1</attribute>
+                                                    <attribute name="vflex">1</attribute>
+                                                    <attribute name="style">font-family: Courier;white-space:pre;word-wrap:normal</attribute>
+                                                    <attribute name="multiline">true</attribute>
+                                                    <attribute name="disabled">true</attribute>
+                                                    <attribute name="onChanging">converter.setInputText(event.value); input.setValue(event.value);converter.read()</attribute>
+                                                </textbox>
+                                        </center>
+                                    </borderlayout>
+                                </center>
+                            </borderlayout>
+                        </center>
+                    </borderlayout>
+                </west>
+                <east border="0" size="50%" style="padding-left:10px;padding-bottom:20px" flex="true">
+                    <borderlayout>
+                        <north id="step3" border="normal" title=" " collapsible="true" flex="true" zclass="step3bw">
+                            <vbox style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                    <div style="padding-bottom:5px;">
+                                        <label id="outputProgramLabel" sclass="gray">
+                                            Select program
+                                        </label>
+                                        <listbox id="outputProgram" mold="select" rows="1" disabled="true"
+                                            onSelect="converter.onOutputProgramSelect()">
+                                                <listitem label="&lt;select&gt;" />
+                                                <listitem label="&#160;&#160;&#160;&#160;General"/>
+                                                <listitem label="Alignment" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;Clustal" />
+                                                <listitem label="&#160;&#160;&#160;&#160;MAFFT" />
+                                                <listitem label="&#160;&#160;&#160;&#160;MUSCLE" />
+                                                <listitem label="&#160;&#160;&#160;&#160;PROBCONS" />
+                                                <listitem label="&#160;&#160;&#160;&#160;TCoffee" />
+                                                <listitem label="Alignment edition" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;BioEdit" />
+                                                <listitem label="&#160;&#160;&#160;&#160;Se-Al" />
+                                                <listitem label="Alignment filtering" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;Gblocks" />
+                                                <listitem label="&#160;&#160;&#160;&#160;trimAl" />
+                                                <listitem label="Model selection" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;jModelTest" />
+                                                <listitem label="&#160;&#160;&#160;&#160;ProtTest" />
+                                                <listitem label="Phylogenetic analysis" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;MEGA" />
+                                                <listitem label="&#160;&#160;&#160;&#160;Mesquite" />
+                                                <listitem label="&#160;&#160;&#160;&#160;MrBayes" />
+                                                <listitem label="&#160;&#160;&#160;&#160;PAML" />
+                                                <listitem label="&#160;&#160;&#160;&#160;PAUP" />
+                                                <listitem label="&#160;&#160;&#160;&#160;PhyML"  />
+                                                <listitem label="&#160;&#160;&#160;&#160;RAxML" />
+                                                <listitem label="&#160;&#160;&#160;&#160;SeaView" />
+                                                <listitem label="Phylogenetic networks" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;SplitsTree" />
+                                                <listitem label="&#160;&#160;&#160;&#160;TCS" />
+                                                <listitem label="Population genetics" style="font-weight:bold" disabled="true" />
+                                                <listitem label="&#160;&#160;&#160;&#160;dnaSP" />
+                                                <listitem label="&#160;&#160;&#160;&#160;CodABC" />
+                                        </listbox>
+                                        <html sclass="gray" id="andOutputFormat"><![CDATA[<b>AND</b>]]></html>
+                                        <label id="outputFormatLabel" sclass="gray">
+                                            format
+                                        </label>
+                                        <listbox id="outputFormat" mold="select" rows="1" disabled="true"
+                                            onSelect="converter.onOutputFormatSelect()">
+                                                <listitem label="&lt;select&gt;" />
+                                                <listitem label="ALN" />
+                                                <listitem label="FASTA" />
+                                                <listitem label="GDE" />
+                                                <listitem label="MEGA" />
+                                                <listitem label="MSF" />
+                                                <listitem label="NEXUS"  />
+                                                <listitem label="PHYLIP" />
+                                                <listitem label="PIR" />
+                                        </listbox>
+                                        <html sclass="gray" id="andConvert"><![CDATA[<b>AND</b>]]></html>
+                                        <button id="convert" label="convert!" onClick="converter.convert()" disabled="true"/>
+                                    </div>
+                                    <panel id="advanced" width="600" border="normal" title="Advanced options" collapsible="true" onOpen="converter.onPanelOpen()">
+                                        <panelchildren>
+                                            <div style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                                <groupbox mold="3d">
+                                                    <caption label="General"/>
+                                                        <checkbox style="font-weight: bold" id="sequential" label="Sequential" disabled="true" sclass="gray"/>
+                                                        <checkbox id="lower" label="Lower case" disabled="true" sclass="gray"/>
+                                                        <checkbox id="match" label="Match first" disabled="true" sclass="gray"/>
+                                                        <checkbox id="numbers" label="Residue numbers" disabled="true" sclass="gray"/>
+                                                </groupbox>
+                                                <groupbox mold="3d">
+                                                    <caption label="Haplotypes collapse"/>
+                                                    <hbox>
+                                                        <vbox>
+                                                            <checkbox id="collapse" label="Collapse sequences to haplotypes" sclass="gray"
+                                                                onCheck="converter.onCollapseCheck()" disabled="true"/>
+                                                            <checkbox id="countMissing" label="Count missing data as differences" disabled="true" sclass="gray"/>
+                                                        </vbox>
+                                                        <vbox>
+                                                            <checkbox id="gapsAsMissing" label="Treat gaps as missing data" checked="true" disabled="true" sclass="gray"/>
+                                                            <div>
+                                                                <label id="limitLabel" sclass="gray">
+                                                                    Limit
+                                                                </label>
+                                                                <spinner id="limit" value="0" constraint="no negative" disabled="true"/>
+                                                            </div>
+                                                        </vbox>
+                                                    </hbox>
+                                                </groupbox>
+                                            </div>
+                                        </panelchildren>
+                                    </panel>
+                            </vbox>
+                        </north>
+                        <center border="0" style="padding-top:20px;">
+                            <borderlayout>
+                                <center id="step4" border="normal" title=" " zclass="step4bw">
+                                        <borderlayout>
+                                            <center border="0" style="padding-top:5px;padding-left:5px;padding-right:5px;">
+                                                <textbox id="output" w:onFocus="document.getElementById(this.uuid).setAttribute('wrap','off');">
+                                                    <attribute name="hflex">1</attribute>
+                                                    <attribute name="vflex">1</attribute>
+                                                    <attribute name="style">font-family: Courier;white-space:pre;word-wrap:normal</attribute>
+                                                    <attribute name="multiline">true</attribute>
+                                                    <attribute name="disabled">true</attribute>
+                                                    <attribute name="readonly">true</attribute>
+                                                </textbox>
+                                            </center>
+                                            <south border="0">
+                                                <div style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                                                    <label id="outputOSLabel" sclass="gray">
+                                                        Select operating system
+                                                    </label>
+                                                    <listbox id="outputOS" mold="select" disabled="true">
+                                                        <listitem label="Linux/Mac OS X" value="Linux"/>
+                                                        <listitem label="Mac OS" value="MacOS"/>
+                                                        <listitem label="Windows" value="Windows"/>
+                                                    </listbox>
+                                                    <html sclass="gray" id="andSave"><![CDATA[<b>AND</b>]]></html>
+                                                    <button id="save" label="save..." disabled="true" onClick="converter.save()"/>
+                                                </div>
+                                            </south>
+                                        </borderlayout>
+                                </center>
+                            </borderlayout>
+                        </center>
+                    </borderlayout>
+                </east>
+                <south id="log" splittable="true" title="Log"  collapsible="true" size="200px">
+                    <borderlayout>
+                        <west title="Info" border="0" collapsible="true" size="33%" style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;" >
+                            <borderlayout>
+                                <center border="0">
+                                    <textbox id="info" width="100%" w:onFocus="document.getElementById(this.uuid).scrollTop=999999;document.getElementById(this.uuid).setAttribute('wrap','off');">
+                                        <attribute name="hflex">1</attribute>
+                                        <attribute name="vflex">1</attribute>
+                                        <attribute name="style">font-family: Courier;white-space:pre;word-wrap:normal</attribute>
+                                        <attribute name="multiline">true</attribute>
+                                        <attribute name="readonly">true</attribute>
+                                    </textbox>
+                                </center>
+                                <east border="0" size="34px">
+                                    <vbox>
+                                        <toolbarbutton tooltiptext="Save log as text file" image="img/export.png" onClick="converter.onInfoSave()"/>
+                                        <toolbarbutton tooltiptext="Clear log" image="img/remove.png" onClick="converter.onInfoClear()"/>
+                                    </vbox>
+                                </east>
+                            </borderlayout>
+                        </west>
+                        <center title="Error" border="0" style="padding-top:5px;padding-bottom:5px;">
+                            <borderlayout>
+                                <center border="0">
+                                    <textbox id="error" width="100%" w:onFocus="document.getElementById(this.uuid).scrollTop=999999;document.getElementById(this.uuid).setAttribute('wrap','off');">
+                                        <attribute name="hflex">1</attribute>
+                                        <attribute name="vflex">1</attribute>
+                                        <attribute name="style">font-family: Courier;white-space:pre;word-wrap:normal;</attribute>
+                                        <attribute name="multiline">true</attribute>
+                                        <attribute name="readonly">true</attribute>
+                                    </textbox>
+                                </center>
+                                <east border="0" size="34px">
+                                    <vbox>
+                                        <toolbarbutton tooltiptext="Save log as text file" image="img/export.png" onClick="converter.onErrorSave()"/>
+                                        <toolbarbutton tooltiptext="Clear log" image="img/remove.png" onClick="converter.onErrorClear()"/>
+                                    </vbox>
+                                </east>
+                            </borderlayout>
+                        </center>
+                        <east title="Warning" border="0" collapsible="true" size="33%" style="padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;">
+                            <borderlayout>
+                                <center border="0">
+                                    <textbox id="warning" width="100%" w:onFocus="document.getElementById(this.uuid).scrollTop=999999;document.getElementById(this.uuid).setAttribute('wrap','off');">
+                                        <attribute name="hflex">1</attribute>
+                                        <attribute name="vflex">1</attribute>
+                                        <attribute name="style">font-family: Courier;white-space:pre;word-wrap:normal</attribute>
+                                        <attribute name="multiline">true</attribute>
+                                        <attribute name="readonly">true</attribute>
+                                    </textbox>
+                                </center>
+                                <east border="0" size="34px">
+                                    <vbox>
+                                        <toolbarbutton tooltiptext="Save log as text file" image="img/export.png" onClick="converter.onWarningSave()"/>
+                                        <toolbarbutton tooltiptext="Clear log" image="img/remove.png" onClick="converter.onWarningClear()"/>
+                                    </vbox>
+                                </east>
+                            </borderlayout>
+                        </east>
+                    </borderlayout>
+                </south>
+            </borderlayout>
+        </center>
+        <south>
+            <?script type="text/javascript" src="analytics1.js"?>
+            <?script type="text/javascript" src="analytics2.js"?>
+	</south>
+    </borderlayout>
+</window>

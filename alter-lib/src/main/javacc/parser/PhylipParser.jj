@@ -1,0 +1,348 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(PhylipParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Phylip;
+import es.uvigo.ei.sing.alter.types.PhylipSequence;
+import java.io.StringReader;
+import java.util.Vector;
+import java.util.StringTokenizer;
+
+/**
+* PHYLIP format parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+public class PhylipParser
+{
+    /**
+    * Static method that parses an input string and returns a MSA in PHYLIP format.
+    * @param in Input string.
+    * @return MSA in PHYLIP format.
+    */
+    public static Phylip parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        PhylipParser parser = new PhylipParser(new StringReader(in));
+        return parser.Phylip();
+    }
+}
+
+PARSER_END(PhylipParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9","-",".","?","\"","'"] >
+
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines
+* until a number is found.<br>
+* &nbsp;&nbsp;2. Taxa number (number of sequences) followed by one or more
+* spaces or tabs and the sequences length. Any character can follow until
+* the end of the line, these characters will be omitted.<br>
+* &nbsp;&nbsp;3. Any combination of spaces, tabs and new lines
+* until the first sequence identifier.<br>
+* &nbsp;&nbsp;4. If the MSA is in sequential format sequences with the following structure follow:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;4a. Sequence identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;4b. Sequence data.<br>
+* &nbsp;&nbsp;5. If the MSA is in interleaved format lines with the following structure follow:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;5a. Sequence identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;5b. Sequence data line.<br>
+* @return MSA in PHYLIP format.
+*/
+Phylip Phylip():
+{
+    Vector<PhylipSequence> seqs = new Vector<PhylipSequence>();
+    int taxa, length;
+    String id1, id2, data1, data2;
+}
+{
+    (<EOL> | <BLANK>)*
+    taxa = Number() (<BLANK>)+ length = Number() (<EOL> | ((<BLANK>)+ ((Line() <EOL>) | <EOL>)))
+    (<EOL> | <BLANK>)*
+
+    id1 = Id() (<EOL> | ((<BLANK>)+ (<EOL>)?)) data1 = DataLine() <EOL> (<EOL> | <BLANK>)*
+    id2 = Id() (<EOL> | ((<BLANK>)+ (<EOL>)?)) data2 = DataLine() <EOL> (<EOL> | <BLANK>)*
+    {
+        if(data1.length() > data2.length())
+        {
+            StringBuffer data = new StringBuffer();
+            data.append(data1);
+            data.append(id2);
+            data.append(data2);
+            seqs.add(new PhylipSequence(id1, data.toString()));
+
+            int read = seqs.firstElement().getData().length();
+
+            seqs.firstElement().concat(Data(length - read));
+            //It's sequential
+            PhylipSeq(length, seqs);
+        }
+        else
+        {
+            seqs.add(new PhylipSequence(id1,data1));
+            seqs.add(new PhylipSequence(id2,data2));
+            //It's interleaved
+            PhylipIntIds(taxa - 2, seqs);
+            PhylipIntSeqs(taxa, seqs);
+        }
+    }
+    <EOF>
+    {
+        return new Phylip(taxa, length, seqs);
+    }
+}
+
+/**
+* Parses the first sequences of an interleaved PHYLIP, adding a new sequence
+* to the vector for every parsed line.
+* @param taxa Number of sequences to be parsed.
+* @param seqs Sequences vector.
+*/
+void PhylipIntIds(int taxa, Vector<PhylipSequence> seqs):
+{
+    if (taxa == 0)
+        return;
+    int cont = 0;
+    String id, data;
+}
+{
+    (
+        id = Id() (<EOL> | ((<BLANK>)+ (<EOL>)?)) data = DataLine() (<EOF> | (<EOL> (<EOL> | <BLANK>)*))
+        {
+            seqs.add(new PhylipSequence(id, data));
+            cont++;
+            if (cont == taxa)
+                return;
+        }
+    )+
+}
+
+/**
+* Parses de rest of the sequences of an interleaved PHYLIP, concating them to the
+* already read ones.
+* @param taxa Number of sequences to be parsed.
+* @param seqs Sequences vector.
+*/
+void PhylipIntSeqs(int taxa, Vector<PhylipSequence> seqs):
+{
+    int cont = 0;
+    String data;
+}
+{
+    (
+        data = DataLine() (<EOF> | (<EOL> (<EOL> | <BLANK>)*))
+        {
+            seqs.elementAt(cont).concat(data);
+            cont++;
+            if (cont == taxa)
+                cont = 0;
+        }
+    )*
+}
+
+/**
+* Parses the sequences of a sequential PHYLIP, adding a new sequence to the sequences vector
+* for every parsed line.
+* @param length Length of the sequences to be parsed.
+* @seqs Sequences vector.
+*/
+void PhylipSeq(int length, Vector<PhylipSequence> seqs):
+{
+    String id, data;
+}
+{
+    (<BLANK> | <EOL>)*
+    (
+        id = Id() (<BLANK>|<EOL>) data = Data(length) (<BLANK> | <EOL>)*
+        {
+            seqs.add(new PhylipSequence(id,data));
+        }
+    )*
+}
+
+/**
+* Parses a number.
+* @return Parsed number.
+*/
+int Number():
+{
+    String s = "";
+    Token t;
+}
+{
+    (t = <NUMBER>
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return Integer.parseInt(s);
+    }
+}
+
+/**
+* Parses a sequence identifier.
+* @return Sequence identifier.
+*/
+String Id():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (
+            ("\"" | "'")
+            (
+                (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+                    |t = <ANY> | t = "-" | t = "." | t = "?" )
+                {
+                    s.append(t.image);
+                }
+            )+
+            ("\"" | "'")
+        )
+    |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+                    |t = <ANY> | t = "-" | t = "." | t = "?" )
+            {
+                s.append(t.image);
+            }
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+                    |t = <ANY> | t = "-" | t = "." | t = "?" | t = "\"" | t ="'")
+                {
+                    s.append(t.image);
+                }
+            )*
+        )
+    )
+    {
+        return s.toString().trim();
+    }
+
+}
+
+/**
+* Parses a line made up of any character sequence.
+* @return Parsed line.
+*/
+String Line():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+        | t = <ANY> | t = "-" | t = "." | t = "?"  | t = "\"" | t = "'")
+    {
+        s.append(t.image);
+    }
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+            | t = <ANY> | t = "-" | t = "." | t = "?"  | t = "\"" | t = "'")
+        {
+            s.append(t.image);
+        }
+    )*
+    {
+        return s.toString().trim();
+    }
+}
+
+/**
+* Parses a data line. A data line can be made up of characters from "A" to "Z"
+* (lowercase and uppercase), "-", "." or "?". Spaces and tabs are omitted.
+* @return String with the data line (always uppercase).
+*/
+String DataLine():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?")
+        {
+            s.append(t.image);
+        }
+    )
+    (
+        t = <BLANK>
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?")
+            {
+                s.append(t.image);
+            }
+        )
+    )*
+    {
+        return s.toString().toUpperCase();
+    }
+}
+
+/**
+* Parses the data of a sequence with the given length. These data can be made up
+* of any characters from "A" to "Z" (lowercase and uppercase), "-", "." or "?".
+* Spaces, tabs and new lines are omitted.
+* @param length Length of the sequence to be parsed.
+* @return String with the sequence data (uppercase always).
+*/
+String Data(int length):
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+    int chars = 0;
+    if (length==0) return ""; //lipido's patch needed for sequential Phylip with 2 lines per sequence
+}
+{
+    (
+        (t = <BLANK> | t = <EOL>)
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?" )
+            {
+                s.append(t.image);
+                chars++;
+                if(chars == length)
+                    return s.toString().toUpperCase();
+            }
+        )
+    )+
+    {
+        return s.toString().toUpperCase();
+    }
+}

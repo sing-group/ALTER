@@ -1,0 +1,265 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(AlnParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Aln;
+import es.uvigo.ei.sing.alter.types.AlnSequence;
+import java.io.StringReader;
+import java.util.Vector;
+
+/**
+* ALN format parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+
+public class AlnParser
+{
+  /**
+  * Static method that parses an input string and returns a MSA in ALN format.
+  * @param in Input string.
+  * @return MSA in ALN format.
+  */
+  public static Aln parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        AlnParser parser = new AlnParser(new StringReader(in));
+        return parser.Aln();
+    }
+}
+
+PARSER_END(AlnParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9","*",":",".","-","?","\"","'","%"] >
+}
+
+//When a "%" is found in DEFAULT state ignore it and change state to IN_COMMENT
+MORE :
+{
+    "%": IN_COMMENT
+}
+
+//When any character is found within a comment, ignore it
+<IN_COMMENT> MORE :
+{
+    <  ~[] >
+}
+
+//When a EOL is found in IN_COMMENT state change to DEFAULT state
+<IN_COMMENT> SKIP :
+{
+    <"\n" | "\r" | "\r\n">: DEFAULT
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines
+* until the word "CLUSTAL", "MUSCLE" or "PROBCONS".<br>
+* &nbsp;&nbsp;2. Any character after the word "CLUSTAL", "MUSCLE" or "PROBCONS"
+* until the end of that line.<br>
+* &nbsp;&nbsp;3. Any combination of spaces, tabs and new lines
+* until first sequence identifier.<br>
+* &nbsp;&nbsp;4. Sequence blocks with the following structure:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;4a. Sequence line:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4a1. Identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4a2. Data line.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4a3. Number of residues (optional).<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;4b. Consensus line made up of spaces, tabs, "*", ":" or ".".
+* @return MSA in ALN format.
+*/
+Aln Aln():
+{
+    Vector<AlnSequence> seqs = new Vector<AlnSequence>();
+    String id, data;
+    int cont = 0;
+}
+{
+    (<EOL> | <BLANK>)*
+    ("CLUSTAL" | "MUSCLE" | "PROBCONS")
+    (<BLANK> | <UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | "*" | ":" | "."
+        | "-" | "?" | "CLUSTAL" | "MUSCLE" | "PROBCONS" | "\"" | "'")* <EOL>
+    (<EOL> | <BLANK>)*
+    (
+        id = Id() <BLANK> data = DataLine() (<NUMBER> (<BLANK>)*)* <EOL>
+        {
+            seqs.add(new AlnSequence(id,data));
+        }
+    )+
+    ((<BLANK> | "*" | ":" | ".")* (<EOL>))+
+    (
+        (
+            IdSeq(seqs.elementAt(cont).getId()) <BLANK> data = DataLine() (<NUMBER> (<BLANK>)*)* (<EOL> | <EOF>)
+            {
+                seqs.elementAt(cont).concat(data);
+                cont++;
+            }
+        )+
+        (((<BLANK> | "*" | ":" | ".")* (<EOL>))+ | <EOF>)
+        {
+            cont = 0;
+        }
+    )*
+    <EOF>
+    {
+        return new Aln(seqs);
+    }
+}
+
+/**
+* Parses a sequence identifier. The identifier cannot contain spaces
+* and it cannot start with the characters "*",":","." to avoid
+* confusion with consensus lines.
+* @return String with the sequence identifier.
+*/
+String Id():
+{
+    StringBuffer s =  new StringBuffer();
+    Token t;
+}
+{
+    (
+        (
+        ("\"" | "'")
+
+        (
+            (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+            | t = "*" | t = ":" | t= "." | t = "-" | t = "?"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+            {
+                s.append(t.image);
+            }
+        )+
+
+        ("\"" | "'")
+        )
+    |
+        (
+        (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+            | t = <ANY> | t = "-" | t="?"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+        {
+            s.append(t.image);
+        }
+
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+            | t = "*" | t = ":" | t= "." | t = "-" | t = "?" | t = "\"" | t = "'"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+            {
+                s.append(t.image);
+            }
+        )*
+        )
+    )
+    {
+        return s.toString();
+    }
+}
+
+/**
+* Same behaviour as Id(), but in this case equality between the already read
+* identifier and the current one is checked.
+* @param id Identifier to parse.
+*/
+void IdSeq(String id):
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (
+        ("\"" | "'")
+        (
+            (t = <BLANK> | t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+            | t = "*" | t = ":" | t= "." | t = "-" | t = "?"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+            {
+                s.append(t.image);
+            }
+        )+
+        ("\"" | "'")
+        )
+
+    |
+
+        (
+        (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER>
+            | t = <ANY> | t = "-" | t="?"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+        {
+            s.append(t.image);
+        }
+
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+            | t = "*" | t = ":" | t= "." | t = "-" | t = "?" | t = "\"" | t = "'"
+            | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+            {
+                s.append(t.image);
+            }
+        )*
+        )
+    )
+    {
+        if (!id.equals(s.toString()))
+        throw new ParseException("ID for sequence \"" + id
+                            + "\"does not match with ID in line " + t.beginLine);
+    }
+}
+
+/**
+* Parses a data line. A data line can be made up of characters from "A" to "Z"
+* (lowercase and uppercase), "-", "." or "?". Spaces and tabs are omitted.
+* @return String with the data line (always uppercase).
+*/
+String DataLine():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        t = <BLANK>
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?"
+                | t = "CLUSTAL" | t = "MUSCLE" | t = "PROBCONS")
+            {
+                s.append(t.image);
+            }
+        )
+    )+
+    {
+        return s.toString().toUpperCase();
+    }
+}

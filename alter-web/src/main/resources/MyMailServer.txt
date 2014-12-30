@@ -1,0 +1,35 @@
+# This file is part of ALTER.
+#
+# ALTER is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# ALTER is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+
+# Configuration file for javax.mail
+# If a value for an item is not provided, then
+# system defaults will be used. These items can
+# also be set in code.
+
+# Host whose mail services will be used
+# (Default value : localhost)
+mail.host=sing.ei.uvigo.es
+
+# Return address to appear on emails
+# (Default value : username@host)
+mail.from=no-reply@sing.ei.uvigo.es
+
+# Other possible items include:
+# mail.user=
+# mail.store.protocol=
+# mail.transport.protocol=
+# mail.smtp.host=
+# mail.smtp.user=
+# mail.debug= 

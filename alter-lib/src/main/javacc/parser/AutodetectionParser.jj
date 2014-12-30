@@ -1,0 +1,184 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+}
+
+PARSER_BEGIN(AutodetectionParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import java.io.StringReader;
+
+/**
+* Autodetection parser.
+* @author Daniel Gomez Blanco
+* @version 1.2
+*/
+public class AutodetectionParser
+{
+
+  /**
+  * Static method that parses an input string and returns the format of the input MSA.
+  * @param in Input string.
+  * @return String with the detected format.
+  */
+  public static String detectFormat (String in) throws ParseException
+    {
+        //Parse string and return MSA format
+        AutodetectionParser parser = new AutodetectionParser(new StringReader(in));
+        return parser.Autodetection();
+    }
+}
+
+PARSER_END(AutodetectionParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","0"-"9",";",">","#","%"] >
+}
+
+/**
+* Grammar's root production. After omitting spaces, tabs and new lines,
+* format is detected using the first words:<br>
+* &nbsp;&nbsp;- If it starts with "#" or "%" it's GDE.<br>
+* &nbsp;&nbsp;- If it starts with "#NEXUS" it's NEXUS.<br>
+* &nbsp;&nbsp;- If it starts with "CLUSTAL", "MUSCLE" or "PROBCONS" it's ALN.<br>
+* &nbsp;&nbsp;- If it starts with "PileUp", "!!AA_MULTIPLE_ALIGNMENT" or
+* "!!NA_MULTIPLE_ALIGNMENT" it's MSF.<br>
+* &nbsp;&nbsp;- If it starts with a number, followed by a sequence of spaces
+* or tabs, and then another number, it's PHYLIP.<br>
+* &nbsp;&nbsp;- If it starts with ">" followed by two characters and ";" it's PIR.<br>
+* &nbsp;&nbsp;- If it starts with ">" and it doesn't meet the latter point it's FASTA.
+*/
+String Autodetection():
+{
+    String toret;
+}
+{
+    (<BLANK> | <EOL>)*
+    (
+        ( "#" | "%" )
+        {
+            return "gde";
+        }
+    |
+        "#NEXUS"
+        {
+            return "nexus";
+        }
+    |
+        ("CLUSTAL" | "MUSCLE" | "PROBCONS")
+        {
+            return "aln";
+        }
+    |
+        (Number() (<BLANK>)+ Number())
+        {
+            return "phylip";
+        }
+    |
+        (">"
+        (LOOKAHEAD(Type() ";" )
+            (
+                Type() ";"
+                { return "pir"; }
+            )
+            |
+            (
+                Line()
+                { return "fasta"; }
+            )
+        )
+        )
+    |
+        (
+            "PileUp"
+        |
+            "!!AA_MULTIPLE_ALIGNMENT"
+        |
+            "!!NA_MULTIPLE_ALIGNMENT"
+        )
+        {
+        return "msf";
+        }
+    )
+}
+
+/**
+* Parses a number.
+* @return Parsed number.
+*/
+int Number():
+{
+    String s = "";
+    Token t;
+}
+{
+    (t = <NUMBER>
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return Integer.parseInt(s);
+    }
+}
+
+/**
+* Parses a PIR style type.
+* @return String with the type of MSA.
+*/
+String Type():
+{
+    Token t1, t2;
+}
+{
+    (t1 = <UPPER_CASE> (t2 = <UPPER_CASE> | t2 = <NUMBER>))
+    {
+        return t1.image + t2.image;
+    }
+}
+
+/**
+* Parses a line made up with any sequence of characters.
+* @return Parsed line.
+*/
+String Line():
+{
+    String s = "";
+    Token t;
+}
+{
+    (
+        (t = <BLANK> | t = <UPPER_CASE> | t = <NUMBER> | t = <ANY>
+        | t = ">" | t = ";" | t = "#" | t = "%" | t = "#NEXUS" | t = "CLUSTAL"
+        | t = "MUSCLE" | t = "PROBCONS"| t = "PileUp")
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return s.trim();
+    }
+}

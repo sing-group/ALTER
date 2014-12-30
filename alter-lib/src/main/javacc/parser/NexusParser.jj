@@ -1,0 +1,382 @@
+/*
+ *  This file is part of ALTER.
+ *
+ *  ALTER is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  ALTER is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with ALTER.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+options
+{
+  STATIC = false;
+  IGNORE_CASE = true;
+}
+
+PARSER_BEGIN(NexusParser)
+
+package es.uvigo.ei.sing.alter.parser;
+
+import es.uvigo.ei.sing.alter.types.Nexus;
+import es.uvigo.ei.sing.alter.types.NexusSequence;
+import java.io.StringReader;
+import java.util.Vector;
+
+/**
+* NEXUS format parser.
+* @author Daniel Gomez Blanco
+* @version 1.3
+*/
+public class NexusParser
+{
+  /**
+  * Static method that parses an input string and returns a MSA in NEXUS format.
+  * @param in Input string.
+  * @return MSA in NEXUS format.
+  */
+  public static Nexus parseMSA (String in) throws ParseException
+    {
+        //Parse string and return MSA
+        NexusParser parser = new NexusParser(new StringReader(in));
+        return parser.Nexus();
+    }
+}
+
+PARSER_END(NexusParser)
+
+TOKEN :
+{
+    <EOL: "\n" | "\r" | "\r\n" > |
+    <BLANK: " " | "\t" > |
+    <UPPER_CASE: ["A"-"Z"] > |
+    <LOWER_CASE: ["a"-"z"] > |
+    <NUMBER: ["0"-"9"] > |
+    <ANY: ~["\r","\n"," ","\t","A"-"Z","a"-"z","0"-"9",";","-",".","?","=","[","\"","'"] >
+
+}
+
+//When a "[" is found in DEFAULT state ignore it and change state to IN_COMMENT
+MORE :
+{
+    "[": IN_COMMENT
+}
+
+//When any character is found within a comment, ignore it
+<IN_COMMENT> MORE :
+{
+    <  ~["]"] >
+}
+
+//When a "]" is found in IN_COMMENT state change to DEFAULT state
+<IN_COMMENT> SKIP :
+{
+    "]": DEFAULT
+}
+
+/**
+* Grammar's root production. Structure:<br>
+* &nbsp;&nbsp;1. Any combination of spaces, tabs and new lines until "#NEXUS".<br>
+* &nbsp;&nbsp;2. "#NEXUS".<br>
+* &nbsp;&nbsp;3. Any combination of characters until "BEGIN DATA;".<br>
+* &nbsp;&nbsp;4. "BEGIN DATA;"<br>
+* &nbsp;&nbsp;5. Any combination of characters until "ntax=".<br>
+* &nbsp;&nbsp;6. "ntax=" followed by the taxa number (number of sequences in the MSA),
+* "nchar=" followed by the sequences length and ";".<br>
+* &nbsp;&nbsp;7. Any character until "datatype=".<br>
+* &nbsp;&nbsp;8. "datatype=" followed by the MSA type.<br>
+* &nbsp;&nbsp;9. Any character until "matrix".<br>
+* &nbsp;&nbsp;10. Sequences in NEXUS format:<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;10a. Sequence identifier.<br>
+* &nbsp;&nbsp;&nbsp;&nbsp;10a. Data line.<br>
+* &nbsp;&nbsp;11. ";".<br>
+* &nbsp;&nbsp;12. "end;".<br>
+* &nbsp;&nbsp;13. Any combination of characters until the end of file.<br>
+* @return MSA in NEXUS format.
+*/
+Nexus Nexus():
+{
+    Vector<NexusSequence> seqs = new Vector<NexusSequence>();
+    int taxa = 0,length = 0;
+    String id, data;
+    String type = "";
+    int cont = 0;
+}
+{
+    (<EOL> | <BLANK>)*
+
+    "#NEXUS"
+    (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL>
+        | "#NEXUS" | "ntax" | "nchar" | "datatype" | "matrix" | "end;" | "="  | "\"" | "'")*
+
+    (
+        (
+            "BEGIN DATA" ";"
+
+            (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+
+            (
+                (
+                      ("ntax" (<BLANK>)* "=" (<BLANK>)* taxa = Number() (<EOL> | <BLANK> | ";"))
+                    | ("nchar" (<BLANK>)* "=" (<BLANK>)* length = Number() (<EOL> | <BLANK> | ";"))
+                    | ("datatype" (<BLANK>)* "=" (<BLANK>)* type = Type() (<EOL> | <BLANK> | ";"))
+                )
+                (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+            )+
+
+            {
+                if (taxa == 0)
+                    throw new ParseException("Number of sequences (ntax) missing in NEXUS header.");
+                if (length == 0)
+                    throw new ParseException("Sequences length (nchar) missing in NEXUS header.");
+                if (type.isEmpty())
+                    throw new ParseException("MSA type (datatype) missing in NEXUS header.");
+            }
+        )
+    |
+        (
+            "BEGIN TAXA" ";"
+
+            (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+
+            "ntax" (<BLANK>)* "=" (<BLANK>)* taxa = Number() (<EOL> | <BLANK> | ";")
+
+            (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+
+            "end;"
+
+            {
+                if (taxa == 0)
+                    throw new ParseException("Number of sequences (ntax) missing in NEXUS header.");
+            }
+
+            (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+
+            "BEGIN CHARACTERS" ";"
+
+            (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+
+            (
+                (
+                    ("nchar" (<BLANK>)* "=" (<BLANK>)* length = Number() (<EOL> | <BLANK> | ";"))
+                    | ("datatype" (<BLANK>)* "=" (<BLANK>)* type = Type() (<EOL> | <BLANK> | ";"))
+                )
+                (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL> | "="  | "\"" | "'")*
+            )+
+
+            {
+                if (length == 0)
+                    throw new ParseException("Sequences length (nchar) missing in NEXUS header.");
+                if (type.isEmpty())
+                    throw new ParseException("MSA type (datatype) missing in NEXUS header.");
+            }
+        )
+    )
+
+    "matrix" (<BLANK>)* (<EOL> (<BLANK>)*)+
+
+    (
+        id = Id() <BLANK> data = DataLine() (";"(<BLANK>)*)? (<EOL> (<BLANK>)*)+ (";"(<BLANK>)* (<EOL> (<BLANK>)*)+)?
+        {
+            seqs.add(new NexusSequence(id, data));
+            cont++;
+            if (cont == taxa)
+            {
+                cont = 0;
+                break;
+            }
+        }
+    )+
+    (
+        IdSeq(seqs.elementAt(cont).getId()) <BLANK> data = DataLine() (";"(<BLANK>)*)? (<EOL> (<BLANK>)*)+ (";"(<BLANK>)* (<EOL> (<BLANK>)*)+)?
+        {
+            seqs.elementAt(cont).concat(data);
+            cont++;
+            if (cont == seqs.size())
+                cont = 0;
+        }
+    )*
+
+    "end;"
+    (<UPPER_CASE> | <LOWER_CASE> | <NUMBER> | <ANY> | ";" | "-" | "." | "?" | <BLANK> | <EOL>
+        | "#NEXUS" | "ntax" | "nchar" | "datatype" | "matrix" | "end;" | "BEGIN DATA" | "BEGIN TAXA" | "BEGIN CHARACTERS" | "=" | "\"" | "'")*
+    <EOF>
+
+    {
+        return new Nexus(taxa, length, type, seqs);
+    }
+}
+
+
+/**
+* Parses a number.
+* @return Parsed number.
+*/
+int Number():
+{
+    String s = "";
+    Token t;
+}
+{
+    (t = <NUMBER>
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return Integer.parseInt(s);
+    }
+}
+
+/**
+* Parses a NEXUS style type.
+* @return String with the type.
+*/
+String Type():
+{
+    String s = "";
+    Token t;
+}
+{
+    (
+        (t = <UPPER_CASE> | t = <LOWER_CASE>)
+        {
+            s = s.concat(t.image);
+        }
+    )+
+    {
+        return s.toUpperCase();
+    }
+}
+
+/**
+* Parses a sequence identifier. An identifier cannot contain spaces or start with ";".
+* @return Sequence identifier.
+*/
+String Id():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (
+            ("\"" | "'")
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "end;" | t = "=")
+                {
+                    s.append(t.image);
+                }
+            )+
+            ("\"" | "'")
+        )
+    |
+        (
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "=")
+                {
+                    s.append(t.image);
+                }
+            )
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = ";" | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "end;" | t = "=" | t = "\"" | t = "'")
+                {
+                    s.append(t.image);
+                }
+            )*
+        )
+    )
+    {
+        return s.toString();
+    }
+}
+
+/**
+* Same behaviour as Id(), but in this case equality between the already read
+* identifier and the current one is checked.
+* @param id Identifier to parse.
+*/
+void IdSeq(String id):
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        (
+            ("\"" | "'")
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "end;" | t = "=")
+                {
+                    s.append(t.image);
+                }
+            )+
+            ("\"" | "'")
+        )
+    |
+        (
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "=")
+                {
+                    s.append(t.image);
+                }
+            )
+            (
+                (t = <UPPER_CASE> | t = <LOWER_CASE> | t = <NUMBER> | t = <ANY>
+                | t = ";" | t = "-" | t = "." | t = "?" | t= "matrix" | t = "nchar" | t = "ntax"
+                | t = "datatype" | t = "#NEXUS" | t = "BEGIN DATA" | t = "end;" | t = "=" | t = "\"" | t = "'")
+                {
+                    s.append(t.image);
+                }
+            )*
+        )
+    )
+    {
+        if (!id.equals(s.toString()))
+            throw new ParseException("ID for sequence \"" + id
+                            + "\"does not match with ID in line " + t.beginLine);
+    }
+}
+
+/**
+* Parses a data line. A data line can be made up of characters from "A" to "Z"
+* (lowercase and uppercase), "-", "." or "?". Spaces and tabs are omitted.
+* @return String with the data line (always uppercase).
+*/
+String DataLine():
+{
+    StringBuffer s = new StringBuffer();
+    Token t;
+}
+{
+    (
+        t = <BLANK>
+        |
+        (
+            (t = <UPPER_CASE> | t = <LOWER_CASE> | t = "-" | t = "." | t = "?")
+            {
+                s.append(t.image);
+            }
+        )
+    )+
+    {
+        return s.toString().toUpperCase();
+    }
+}
