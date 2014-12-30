@@ -27,6 +27,11 @@
 			<artifactId>javacc</artifactId>
 			<version>5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+			<version>2.0.12</version>
+		</dependency>
 		<!-- dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
 			<version>4.11</version> <scope>test</scope> </dependency -->
 	</dependencies>
@@ -67,6 +72,30 @@
 			              </includes>
 			              <outputDirectory>src/main/java</outputDirectory>
 			            </configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<archive>
+								<manifest>
+									<mainClass>es.uvigo.ei.sing.alter.cmdLine.Convert</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>ALTER-${version}</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
