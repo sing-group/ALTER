@@ -65,7 +65,7 @@ public class PhylipCodABCWriter extends PhylipWriter
         if (type instanceof Protein)
         {
             logger.log(Level.WARNING,"MSA is a protein MSA. " +
-                    "It will not be processed by TCS (only DNA is processed).");
+                    "It will not be processed by CodABC (only DNA is processed).");
         }
         return super.write(msa);
     }
