@@ -42,6 +42,7 @@ import javax.swing.text.BadLocationException;
 
 import es.uvigo.ei.sing.alter.converter.*;
 import es.uvigo.ei.sing.alter.parser.ParseException;
+import es.uvigo.ei.sing.alter.util.AlterProperties;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -270,7 +271,8 @@ public class MainFrame extends javax.swing.JFrame
         about = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("ALTER (ALignment Transformation EnviRonment) v1.1");
+        setTitle("ALTER (ALignment Transformation EnviRonment) v"+ AlterProperties.getInstance().getProperty
+				("project.version"));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setName("mainFrame"); // NOI18N
