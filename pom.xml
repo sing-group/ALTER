@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.uvigo.ei.sing</groupId>
 	<artifactId>alter-project</artifactId>
-	<version>1.3.4-SNAPSHOT</version><!-- WARNING: change version using 
+	<version>1.3.4</version><!-- WARNING: change version using 
 			mvn versions:set -DnewVersion=[new_version] in order to
 			change the version in all modules at-once
 		-->
