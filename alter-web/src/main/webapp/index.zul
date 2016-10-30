@@ -111,7 +111,7 @@ alignments. Nucleic Acids Research. Web Server issue. ISSN: 0305-1048</label><a 
 		<image src="img/mail.png"></image><html><![CDATA[contact: <a href="mailto:alter@sing.ei.uvigo.es">alter@sing.ei.uvigo.es</a>]]></html>
 		</hbox>
 		<hbox style="float:right;">
-		<image src="img/source.png"/><html><![CDATA[<a href="http://sourceforge.net/projects/alterconverter/" target="_blank">Source code</a>]]></html><image src="img/konsole.png"/><html><![CDATA[<a href="api/" target="_blank">Web service for developers</a>]]></html>
+		<image src="img/source.png"/><html><![CDATA[<a href="https://github.com/sing-group/ALTER" target="_blank">Source code</a>]]></html><image src="img/konsole.png"/><html><![CDATA[<a href="api/" target="_blank">Web service for developers</a>]]></html>
 		</hbox>
 
 
