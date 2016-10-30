@@ -18,6 +18,7 @@ ALTER contains a set of components:
 
 ## Build
 Before starting, you have to download and install:
+
 1. Git tool for cloning the last version
 2. A Java Compiler and tool
 3. The Maven tool
@@ -38,7 +39,6 @@ java -jar alter-lib/target/ALTER-1.3.4-jar-with-dependencies.jar
 ## Running the command line user interface
 ```
 java -jar alter-lib/target/ALTER-1.3.4-jar-with-dependencies.jar help
-
 ```
 
 ## Running the web user interface in your own machine
@@ -55,7 +55,7 @@ Once the server has started, surf to [http://localhost:8080](http://localhost:80
 ## Include the library in your project
 
 ### Maven project (recommended)
-Import our repository to your pom.xml file
+Import our repository into your pom.xml file
 ```
 <project>
     [...]
