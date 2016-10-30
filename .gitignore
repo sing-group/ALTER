@@ -3,3 +3,6 @@
 .classpath
 alter-lib/target/
 alter-web/target/
+*.iml
+.idea
+
