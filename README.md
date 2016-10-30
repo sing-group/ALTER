@@ -32,12 +32,12 @@ mvn package
 
 ## Running the desktop graphical user interface
 ```
-java -jar alter-lib/target/ALTER-1.3.4.jar
+java -jar alter-lib/target/ALTER-1.3.4-jar-with-dependencies.jar
 ```
 
 ## Running the command line user interface
 ```
-java -jar alter-lib/target/ALTER-1.3.4.jar help
+java -jar alter-lib/target/ALTER-1.3.4-jar-with-dependencies.jar help
 
 ```
 
@@ -84,7 +84,7 @@ Import our repository to your pom.xml file
 
 
 ### Include the .jar inside your classpath
-You have to include the alter-lib/ALTER-1.3.4.jar file in your classpath
+You have to include the alter-lib/target/ALTER-1.3.4-jar-with-dependencies.jar file in your classpath
 
 ## Make a sequence conversion inside your Java code
 Here it is an example to convert a NEXUS file to ALN.

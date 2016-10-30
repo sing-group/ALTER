@@ -65,7 +65,7 @@ public abstract class MSA
      * @param gapsAsMissing Treat gaps as missing data when collapsing.
      * @param countMissing Count missing data as differences when collapsing.
      * @param limit Connection limit (sequences differing at <= l sites will be collapsed).
-     * @param log Name of the logger to be instantiated.
+     * @param logger Name of the logger to be instantiated.
      * @return New MSA containing the result sequences.
      */
     public abstract MSA collapse(boolean gapsAsMissing, boolean countMissing, int limit, String logger);
